@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router,  Route } from 'react-router-dom';
 import Navigation from './Navigation';
 import LandingPage from './Landing';
@@ -12,21 +12,13 @@ import AccountPage from './Account';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';
+import withAuthentication from './withAuthentication';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null,
-    };
-  }
-
-  render() {
+const App = () => {
     return (
       <Router>
          <div>
-        <Navigation authUser={this.state.authUser}/>
+        <Navigation />
   
         <hr/>
   
@@ -69,8 +61,7 @@ class App extends Component {
       </div>
     </Router>
     )
-  }
-  
 }
-
-export default App;
+// wrap the App in a session handling higher order component
+// to abstract the session handling logic from App component
+export default withAuthentication(App);

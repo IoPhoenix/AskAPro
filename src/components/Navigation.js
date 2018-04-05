@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AuthUserContext from './AuthUserContext';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
 
-const Navigation = ({ authUser }) => {
+const Navigation = () => {
   return (
-    <div>
-      { authUser
-          ? <NavigationAuth />
-          : <NavigationNonAuth />
+    <AuthUserContext.Consumer>
+      {authUser => authUser
+        ? <NavigationAuth />
+        : <NavigationNonAuth />
       }
-    </div>
+    </AuthUserContext.Consumer>
   )
 }
 
-const NavigationAuth = ({authUser}) => {
+const NavigationAuth = () => {
+  console.log('user logged in');
   return (
     <ul>
-      <li>Hi, {authUser.username}</li>
+      <li>Hi, </li>
       <li><Link to={routes.ACCOUNT}>Account</Link></li>
       <li><Link to={routes.ABOUT}>About</Link></li>
       <li><Link to={routes.CONTACT}>Contact</Link></li>
@@ -27,6 +29,7 @@ const NavigationAuth = ({authUser}) => {
 }
 
 const NavigationNonAuth = () => {
+  console.log('user not logged in');
   return (
     <ul>
       <li><Link to={routes.ABOUT}>About</Link></li>
