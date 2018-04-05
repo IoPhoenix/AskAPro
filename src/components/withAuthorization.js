@@ -5,7 +5,7 @@ import { firebase } from '../firebase';
 import * as routes from '../constants/routes';
 
 const withAuthorization = (authCondition) => (Component) => {
-    class WithAuthorization extends React.Component {
+  class WithAuthorization extends React.Component {
 
     //componentDidMount() lifecycle method uses the Firebase listener 
     // to trigger a callback function in case the authenticated 
@@ -15,21 +15,21 @@ const withAuthorization = (authCondition) => (Component) => {
             // if authorization fails, the higher order component
             // redirects to the sign in page
             if (!authCondition(authUser)) {
-            this.props.history.push(routes.SIGN_IN);
+              this.props.history.push(routes.SIGN_IN);
             }
         });
     }
 
-      render() {
-        return (
-          <AuthUserContext.Consumer>
-            {authUser => authUser ? <Component /> : null}
-          </AuthUserContext.Consumer>
-        );
-      }
-    }  
+    render() {
+      return (
+        <AuthUserContext.Consumer>
+          {authUser => authUser ? <Component /> : null}
+        </AuthUserContext.Consumer>
+      );
+    }
+  }  
 
-    return withRouter(WithAuthorization);
+  return withRouter(WithAuthorization);
 }
 
 export default withAuthorization;

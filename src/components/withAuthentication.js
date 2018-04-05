@@ -21,10 +21,10 @@ const withAuthentication = (Component) => {
     }
 
     render() {
-        const { authUser } = this.state;
+      const { authUser } = this.state;
 
-    // Provider component makes its value accessible
-    // to all the components below
+      // Provider component makes its value accessible
+      // to all the components below
       return (
             <AuthUserContext.Provider value={authUser}>
                 <Component />
@@ -32,7 +32,6 @@ const withAuthentication = (Component) => {
       );
     }
   }
-
   return WithAuthentication;
 }
 

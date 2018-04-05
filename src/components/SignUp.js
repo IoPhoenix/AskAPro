@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
 
 
@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   password: '',
   passwordConfirmed: '',
   role: '',
+  isAdmin: false,
   error: null,
 };
 
@@ -36,9 +37,10 @@ class SignUpForm extends Component {
 
   onSubmit = (event) => {
     const {
-      // username,
+      username,
       email,
       password,
+      role
     } = this.state;
 
     const {
@@ -47,8 +49,17 @@ class SignUpForm extends Component {
 
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        this.setState(() => ({ ...INITIAL_STATE }));
-        history.push(routes.HOME);
+        
+        // create a user in my own accessible Firebase Database too
+        db.doCreateUser(authUser.uid, username, email, role, this.state.isAdmin)
+          .then(() => {
+            this.setState(() => ({ ...INITIAL_STATE }));
+            // redirect to home page after signup
+            history.push(routes.HOME);
+          })
+          .catch(error => {
+            this.setState(byPropKey('error', error));
+          });
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -111,14 +122,14 @@ class SignUpForm extends Component {
           <div>
             <input 
               type="radio"
-              name="pro"
+              name="role"
               value="pro"
               onChange={this.handleOptionChange} />
             <label htmlFor="pro">I'm a pro</label>
 
             <input 
               type="radio" 
-              name="jobseeker"
+              name="role"
               value="jobseeker" 
               onChange={this.handleOptionChange} />
             <label htmlFor="jobseeker">I'm a job seeker</label><br/>
