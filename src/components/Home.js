@@ -5,6 +5,7 @@ import { db } from '../firebase';
 class HomePage extends Component {
   constructor(props) {
     super(props);
+    console.log('From HomePage: props are: ', props);
 
     this.state = {
       users: null,
@@ -16,6 +17,7 @@ class HomePage extends Component {
       this.setState(() => ({ users: snapshot.val() }))      
     });
   }
+
 
   render() {
     const { users } = this.state;
