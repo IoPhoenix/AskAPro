@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
+import { SignInLink } from './SignIn';
 import { auth, db } from '../firebase';
 import * as routes from '../constants/routes';
 
@@ -7,8 +8,9 @@ import * as routes from '../constants/routes';
 const SignUpPage = ({history}) => {
   return (
     <div>
-      <h1>SignUp</h1>
+      <h1>Sign Up</h1>
       <SignUpForm history={history}/>
+      <SignInLink />
     </div>  
   )
 }
@@ -36,16 +38,8 @@ class SignUpForm extends Component {
   }
 
   onSubmit = (event) => {
-    const {
-      username,
-      email,
-      password,
-      role
-    } = this.state;
-
-    const {
-      history,
-    } = this.props;
+    const { username, email, password, role } = this.state;
+    const { history } = this.props;
 
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
@@ -75,14 +69,7 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const {
-      username,
-      email,
-      password,
-      passwordConfirmed,
-      role,
-      error,
-    } = this.state;
+    const { username, email, password, passwordConfirmed, role, error } = this.state;
 
     
     const isInvalid =
@@ -90,6 +77,7 @@ class SignUpForm extends Component {
       passwordConfirmed === '' ||
       password !== passwordConfirmed ||
       email === '' ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
       username === '' || role === '';
     
 

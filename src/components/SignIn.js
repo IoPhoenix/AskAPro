@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { SignUpLink } from './SignUp';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 
 const SignInPage = ({ history }) =>
   <div>
-    <h1>SignIn</h1>
+    <h1>Sign In</h1>
     <SignInForm history={history} />
     <SignUpLink />
   </div>
@@ -28,14 +28,8 @@ class SignInForm extends Component {
   }
 
   onSubmit = (event) => {
-    const {
-      email,
-      password,
-    } = this.state;
-
-    const {
-      history,
-    } = this.props;
+    const { email,  password } = this.state;
+    const { history } = this.props;
 
     auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
@@ -50,15 +44,12 @@ class SignInForm extends Component {
   }
 
   render() {
-    const {
-      email,
-      password,
-      error,
-    } = this.state;
+    const { email, password, error } = this.state;
 
     const isInvalid =
       password === '' ||
-      email === '';
+      email === '' ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     return (
       <form onSubmit={this.onSubmit}>
@@ -84,8 +75,19 @@ class SignInForm extends Component {
   }
 }
 
+const SignInLink = () => {
+  return (
+    <p>
+      Already have an account?
+      {' '}
+      <Link to={routes.SIGN_IN}>Sign In</Link>
+    </p>
+  )
+}
+
 export default withRouter(SignInPage);
 
 export {
   SignInForm,
+  SignInLink
 };
