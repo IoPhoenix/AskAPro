@@ -6,8 +6,6 @@ import { db } from '../firebase';
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    console.log('From HomePage: props are: ', props);
-
     this.state = {
       users: null,
     };
@@ -52,7 +50,7 @@ const UserList = ({ users }) => {
             { listOfPros.map(key => <div className="pro" key={key}>{ users[key].username } </div>)}
           </div>
            : 
-           <div className="pro-list">
+           <div className="jobseeker-list">
             <h2>List of Job Seekers</h2> 
             { listOfJobSeekers.map(key => <div className="pro" key={key}>{ users[key].username } </div>)}
           </div>
