@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
+import AuthUserContext from './AuthUserContext';
 import { db } from '../firebase';
 
 class HomePage extends Component {
@@ -32,23 +33,31 @@ class HomePage extends Component {
 }
 
 const UserList = ({ users }) => {
+    const listOfPros = [], listOfJobSeekers = [];
+
+    // filter out users with different roles
+    Object.keys(users).forEach(key => {
+      if (users[key].role === 'pro') listOfPros.push(key);
+      else listOfJobSeekers.push(key);
+    });
+
   return (
     // show list of pros to job seekers
     // show list of job seekers to pros
     // show these lists to both pros & job seekers?
-    <div className="pro-list">
-      <h2>List of Pros</h2>
-
-      { Object.keys(users)
-        .filter(key => users[key].role === 'pro')
-        .map(key =>
-          <div 
-            className="pro" 
-            key={key}>
-              { users[key].username }
+      <AuthUserContext.Consumer>
+        { authUser => authUser.role === 'jobseeker' ?
+          <div className="pro-list">
+            <h2>List of Pros</h2> 
+            { listOfPros.map(key => <div className="pro" key={key}>{ users[key].username } </div>)}
           </div>
-        )}
-    </div>
+           : 
+           <div className="pro-list">
+            <h2>List of Job Seekers</h2> 
+            { listOfJobSeekers.map(key => <div className="pro" key={key}>{ users[key].username } </div>)}
+          </div>
+        }
+      </AuthUserContext.Consumer>
   )
 }
 

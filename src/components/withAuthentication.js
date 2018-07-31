@@ -12,6 +12,8 @@ const withAuthentication = (Component) => {
         };
       }
   
+    //  Once the authenticated user changes, it changes as well as the passed 
+    // value in the Provider component, and then also in the Consumer component
     componentDidMount() {
         firebase.auth.onAuthStateChanged(authUser => {
             authUser
@@ -24,7 +26,7 @@ const withAuthentication = (Component) => {
       const { authUser } = this.state;
 
       // Provider component makes its value accessible
-      // to all the components below
+      // to all the components below:
       return (
             <AuthUserContext.Provider value={authUser}>
                 <Component />

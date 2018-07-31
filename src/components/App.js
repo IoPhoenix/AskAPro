@@ -8,7 +8,7 @@ import PasswordForgetPage from './PasswordForget';
 import HomePage from './Home';
 import AboutPage from './About';
 import ContactPage from './Contact';
-import AccountPage from './Account';
+import AdminPage from './Admin';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';
@@ -55,8 +55,8 @@ const App = () => {
           component={() => <ContactPage />}
         />
         <Route
-          exact path={routes.ACCOUNT}
-          component={() => <AccountPage />}
+          exact path={routes.ADMIN}
+          component={() => <AdminPage />}
         />
       </div>
     </Router>

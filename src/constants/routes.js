@@ -5,5 +5,5 @@ export const HOME = '/home';
 export const ABOUT = '/about';
 export const CONTACT = '/contact';
 export const PROFILE = '/profile';
-export const ACCOUNT = '/account';
+export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';

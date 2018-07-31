@@ -1,8 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import AuthUserContext from './AuthUserContext';
 import { firebase } from '../firebase';
 import * as routes from '../constants/routes';
+
+// session handling higher order component:
+import AuthUserContext from './AuthUserContext';
+
 
 const withAuthorization = (authCondition) => (Component) => {
   class WithAuthorization extends React.Component {

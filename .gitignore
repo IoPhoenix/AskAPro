@@ -6,6 +6,8 @@
 # Firebase credentials
 /src/firebase/firebase.js
 
+/src/images/mockups
+
 # testing
 /coverage
 

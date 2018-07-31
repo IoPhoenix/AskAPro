@@ -8,12 +8,11 @@ const Navigation = () => {
 
   return (
     <AuthUserContext.Consumer>
-      { authUser => authUser
-        ? 
+      { authUser => authUser ? 
         (
           <ul>
             <li>Hi { authUser.email } </li>
-            <li><Link to={routes.ACCOUNT}>Account</Link></li>
+            <li><Link to={routes.PROFILE}>Profile</Link></li>
             <li><Link to={routes.ABOUT}>About</Link></li>
             <li><Link to={routes.CONTACT}>Contact</Link></li>
             <li><SignOutButton /></li>
