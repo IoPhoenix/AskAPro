@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 
 
-const Navigation = (props) => {
+const User = (props) => {
 
     // retrieve user data from realtime database
     firebase
@@ -20,4 +20,4 @@ const Navigation = (props) => {
     )
 }
 
-export default Navigation;
+export default User;
