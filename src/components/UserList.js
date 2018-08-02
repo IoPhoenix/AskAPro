@@ -12,53 +12,67 @@ class UserList extends React.Component {
       };
     }
 
-    // The componentDidMount() hook runs after the component
-    // output has been rendered to the DOM. 
-    componentDidMount() {
+    // Invoked once, both on the client and server, immediately
+    //  before the initial rendering occurs. If you call setState 
+    // within this method, render() will see the updated state and 
+    // will be executed only once despite the state change 
+    componentWillMount() {
         // retrieve users from firabase
         db.onceGetUsers().then(snapshot => {
           this.setState(() => ({ users: snapshot.val() }))      
-          this.state.users && console.log(this.state.users);
+          console.log('componentWillMount: ', this.state.users);
         });
-      }
+    }
 
-      componentWillUnmount() {}
+      displayListOfUsers = (arrayOfUsers) => {
+        const { limit } = this.props;
+
+        // limits number of showed pros on landing page
+        if (limit) arrayOfUsers = arrayOfUsers.slice(0, limit);
+
+        return arrayOfUsers.map(key =>
+            <ul className="list list--inline list--users" key={key}>
+                <li>
+                { this.state.users[key].username }
+                </li>
+            </ul>
+        );
+      }
 
       render() {
         const { users } = this.state;
         const listOfPros = [], listOfJobSeekers = [];
 
+        console.log('render: ', this.state.users);
+
         // filter out users with different roles
-        Object.keys(users).forEach(key => {
-            if (users[key].role === 'pro') listOfPros.push(key);
-            else listOfJobSeekers.push(key);
-        });
+        if (users) {
+            Object.keys(users).forEach(key => {
+                if (users[key].role === 'pro') listOfPros.push(key);
+                else listOfJobSeekers.push(key);
+            });
+        }
+
+        const prosList =
+            <div className="pro-list">
+                <h2>List of Pros</h2> 
+                { this.displayListOfUsers(listOfPros) }
+            </div>;
+
+        const jobseekersList = 
+            <div className="jobseeker-list">
+                <h2>List of Job Seekers</h2> 
+                { this.displayListOfUsers(listOfJobSeekers)}
+            </div>;
+
 
         return (
             // show list of pros to job seekers
             // show list of job seekers to pros
+            // show limited list of pros on home page to everyone when no user is logged in
             <AuthUserContext.Consumer>
-            { authUser => (authUser.role === 'jobseeker' || authUser.role === null) ?
-                <div className="pro-list">
-                <h2>List of Pros</h2> 
-                { listOfPros.map(key => 
-                    <ul className="list list--inline list--users" key={key}>
-                        <li>
-                        { users[key].username }
-                        </li>
-                    </ul>)}
-                </div>
-                : 
-                <div className="jobseeker-list">
-                <h2>List of Job Seekers</h2> 
-                { listOfJobSeekers.map(key => 
-                    <ul className="list list--inline list--users" key={key}>
-                        <li>
-                        { users[key].username }
-                        </li>
-                    </ul>)}
-                </div>
-            }
+                { authUser => authUser === null ? prosList :
+                            authUser.role === 'pro' ? prosList : jobseekersList }
             </AuthUserContext.Consumer>
         )
     }

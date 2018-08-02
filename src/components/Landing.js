@@ -6,7 +6,7 @@ const LandingPage = () =>
   <div>
     <p>The Home Page is accessible by every signed in user.</p>
     <Hero/>
-    <UserList />
+    <UserList limit={1}/>
   </div>
 
 export default LandingPage;

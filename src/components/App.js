@@ -45,7 +45,7 @@ const App = () => {
         <Route
           exact path={routes.PROFILE}
           component={() => <ProfilePage />}
-        />
+        />``
         <Route
           exact path={routes.ABOUT}
           component={() => <AboutPage />}
