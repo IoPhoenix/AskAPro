@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
-import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import { SignInLink } from './SignIn';
 import * as ROUTES from '../constants/routes';
 
 
-const SignUpPage = ({history}) => {
+const SignUpPage = () => {
   return (
     <div>
       <h1>Sign Up</h1>
