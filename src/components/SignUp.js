@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 import { SignInLink } from './SignIn';
-import { auth, db } from '../firebase';
-import * as routes from '../constants/routes';
+import * as ROUTES from '../constants/routes';
 
 
 const SignUpPage = ({history}) => {
   return (
     <div>
       <h1>Sign Up</h1>
-      <SignUpForm history={history}/>
+      <SignUpForm />    
       <SignInLink />
     </div>  
   )
@@ -30,33 +31,29 @@ const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
 });
 
-class SignUpForm extends Component {
+
+class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
 
     this.state = { ...INITIAL_STATE };
   }
 
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   onSubmit = (event) => {
     const { username, email, password, role } = this.state;
-    const { history } = this.props;
 
-    auth.doCreateUserWithEmailAndPassword(email, password)
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        
-        // create a user in my own accessible Firebase Database too
-        db.doCreateUser(authUser.uid, username, email, role, this.state.isAdmin)
-          .then(() => {
-            this.setState(() => ({ ...INITIAL_STATE }));
-            // redirect to home page after signup
-            history.push(routes.HOME);
-          })
-          .catch(error => {
-            this.setState(byPropKey('error', error));
-          });
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
-        this.setState(byPropKey('error', error));
+        this.setState({ error });
       });
 
     event.preventDefault();
@@ -138,13 +135,21 @@ const SignUpLink = () => {
   return (
     <p>
       Don't have an account?
-      {' '}
-      <Link to={routes.SIGN_UP}>Sign Up</Link>
+      <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </p>
   )
 }
 
-export default withRouter(SignUpPage);
+/*T o redirect a user to another page, we need access to React Router. 
+The React Router node package offers a higher-order component to make 
+the router properties accessible in the props of a component. Any component
+that goes in the withRouter() HOC gains access to all the properties of the router,
+so when passing the enhanced SignUpFormBase component to the withRouter() HOC,
+it has access to the props of the router. The relevant property from the
+router props is the history object, because it allows us to redirect a user to another page by pushing a route to it.*/
+const SignUpForm = withRouter(withFirebase(SignUpFormBase));
+
+export default SignUpPage;
 
 export {
   SignUpForm,
