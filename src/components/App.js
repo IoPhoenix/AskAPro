@@ -18,46 +18,46 @@ const App = () => {
     return (
       <Router>
          <div>
-        <Navigation />
-  
-        <hr/>
-  
-        <Route
-          exact path={routes.LANDING}
-          component={() => <LandingPage />}
-        />
-        <Route
-          exact path={routes.SIGN_UP}
-          component={() => <SignUpPage />}
-        />
-        <Route
-          exact path={routes.SIGN_IN}
-          component={() => <SignInPage />}
-        />
-        <Route
-          exact path={routes.PASSWORD_FORGET}
-          component={() => <PasswordForgetPage />}
-        />
-        <Route
-          exact path={routes.HOME}
-          component={() => <HomePage />}
-        />
-        <Route
-          exact path={routes.PROFILE}
-          component={() => <ProfilePage />}
-        />``
-        <Route
-          exact path={routes.ABOUT}
-          component={() => <AboutPage />}
-        />
-        <Route
-          exact path={routes.CONTACT}
-          component={() => <ContactPage />}
-        />
-        <Route
-          exact path={routes.ADMIN}
-          component={() => <AdminPage />}
-        />
+            <Navigation />
+
+            <hr/>
+
+            <Route
+              exact path={routes.LANDING}
+              component={() => <LandingPage />}
+            />
+            <Route
+              exact path={routes.SIGN_UP}
+              component={() => <SignUpPage />}
+            />
+            <Route
+              exact path={routes.SIGN_IN}
+              component={() => <SignInPage />}
+            />
+            <Route
+              exact path={routes.PASSWORD_FORGET}
+              component={() => <PasswordForgetPage />}
+            />
+            <Route
+              exact path={routes.HOME}
+              component={() => <HomePage />}
+            />
+            <Route
+              exact path={routes.PROFILE}
+              component={() => <ProfilePage />}
+            />``
+            <Route
+              exact path={routes.ABOUT}
+              component={() => <AboutPage />}
+            />
+            <Route
+              exact path={routes.CONTACT}
+              component={() => <ContactPage />}
+            />
+            <Route
+              exact path={routes.ADMIN}
+              component={() => <AdminPage />}
+            />
       </div>
     </Router>
     )
