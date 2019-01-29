@@ -26,10 +26,6 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const byPropKey = (propertyName, value) => () => ({
-  [propertyName]: value,
-});
-
 
 class SignUpFormBase extends Component {
   constructor(props) {
@@ -43,7 +39,7 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
-    const { username, email, password, role } = this.state;
+    const { email, password } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
@@ -56,12 +52,6 @@ class SignUpFormBase extends Component {
       });
 
     event.preventDefault();
-  }
-
-  handleOptionChange = (changeEvent) => {
-    this.setState({
-      role: changeEvent.target.value
-    });
   }
 
   render() {
@@ -81,25 +71,25 @@ class SignUpFormBase extends Component {
       <form onSubmit={this.onSubmit}>
         <input
             value={username}
-            onChange={event => this.setState(byPropKey('username', event.target.value))}
+            onChange={this.onChange}
             type="text"
             placeholder="Full Name"
           />
           <input
             value={email}
-            onChange={event => this.setState(byPropKey('email', event.target.value))}
+            onChange={this.onChange}
             type="text"
             placeholder="Email Address"
           />
           <input
             value={password}
-            onChange={event => this.setState(byPropKey('password', event.target.value))}
+            onChange={this.onChange}
             type="password"
             placeholder="Password"
           />
           <input
             value={passwordConfirmed}
-            onChange={event => this.setState(byPropKey('passwordConfirmed', event.target.value))}
+            onChange={this.onChange}
             type="password"
             placeholder="Confirm Password"
           />
@@ -108,14 +98,14 @@ class SignUpFormBase extends Component {
               type="radio"
               name="role"
               value="pro"
-              onChange={this.handleOptionChange} />
+              onChange={this.onChange} />
             <label htmlFor="pro">I'm a pro</label>
 
             <input 
               type="radio" 
               name="role"
               value="jobseeker" 
-              onChange={this.handleOptionChange} />
+              onChange={this.onChange} />
             <label htmlFor="jobseeker">I'm a job seeker</label><br/>
             <small>*You can change your status later</small>
           </div>

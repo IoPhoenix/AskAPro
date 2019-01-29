@@ -1,7 +1,7 @@
 import React from 'react';
 // import UserList from './UserList';
 // import UserFilter from './UserFilter';
-// import withAuthorization from './withAuthorization';
+import { withAuthorization } from './Session';
 
 const HomePage = () => {
   return (
@@ -15,6 +15,9 @@ const HomePage = () => {
 
 
 //protect /home route with authorization rules
-// const authCondition = (authUser) => !!authUser;
+const condition = authUser => !!authUser; // same as 'const condition = authUser => authUser != null;'
 
-export default HomePage;
+// can be role-based authorization:
+// const condition = authUser => authUser.role === 'ADMIN';
+
+export default withAuthorization(condition)(HomePage);

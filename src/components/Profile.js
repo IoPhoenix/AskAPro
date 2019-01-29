@@ -1,8 +1,13 @@
-// import React from 'react';
-// import withAuthorization from './withAuthorization';
-// import AuthUserContext from './AuthUserContext';
-// import User from './User';
+import React from 'react';
+import { withAuthorization } from './Session';
 
+const AccountPage = () => (
+    <div>
+      <h1>Account Page</h1>
+    </div>
+);
+
+  
 // class ProfilePage extends React.Component {
 //   constructor(props) {
 //     super(props);
@@ -37,7 +42,7 @@
 
   
 
-// //protect /profile route with authorization rules
-// const authCondition = (authUser) => !!authUser;
+// protect /profile route with authorization rules
+const condition = authUser => !!authUser;
 
-// export default withAuthorization(authCondition)(ProfilePage);
+export default withAuthorization(condition)(AccountPage);
