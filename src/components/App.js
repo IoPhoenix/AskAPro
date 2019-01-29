@@ -12,7 +12,7 @@ import AdminPage from './Admin';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';
-import withAuthentication from './withAuthentication';
+// import withAuthentication from './withAuthentication';
 
 const App = () => {
     return (
@@ -45,7 +45,7 @@ const App = () => {
             <Route
               exact path={routes.PROFILE}
               component={() => <ProfilePage />}
-            />``
+            />
             <Route
               exact path={routes.ABOUT}
               component={() => <AboutPage />}
@@ -64,4 +64,5 @@ const App = () => {
 }
 // wrap the App in a session handling higher order component
 // to abstract the session handling logic from App component
-export default withAuthentication(App);
+// export default withAuthentication(App);
+export default App;

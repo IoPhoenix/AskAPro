@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
-import { withFirebase } from '../Firebase';
+import { withFirebase } from './Firebase';
 import { SignInLink } from './SignIn';
 import * as ROUTES from '../constants/routes';
 
@@ -133,8 +133,7 @@ class SignUpFormBase extends Component {
 const SignUpLink = () => {
   return (
     <p>
-      Don't have an account?
-      <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </p>
   )
 }
