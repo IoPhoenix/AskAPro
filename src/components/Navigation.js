@@ -1,31 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthUserContext from './AuthUserContext';
+// import AuthUserContext from './AuthUserContext';
 import SignOutButton from './SignOut';
-import * as routes from '../constants/routes';
+import * as ROUTES from '../constants/routes';
 
-const Navigation = () => {
+const Navigation = ({ authUser }) => {
+  
+  console.log('authUser in Nav: ', authUser);
+  return <div>{authUser ? <NavigationAuth authUser={authUser}/> : <NavigationNonAuth />}</div>;
+};
 
-  return (
-    <AuthUserContext.Consumer>
-      { authUser => authUser ? 
-        (
-          <ul>
-            <li>Hi { authUser.email } </li>
-            <li><Link to={routes.PROFILE}>Profile</Link></li>
-            <li><Link to={routes.ABOUT}>About</Link></li>
-            <li><Link to={routes.CONTACT}>Contact</Link></li>
-            <li><SignOutButton /></li>
-          </ul>
-        ) : (
-          <ul>
-            <li><Link to={routes.ABOUT}>About</Link></li>
-            <li><Link to={routes.CONTACT}>Contact</Link></li>
-            <li><Link to={routes.SIGN_IN}>Login</Link></li>
-          </ul>)
-      }
-    </AuthUserContext.Consumer>
-  )
-}
+const NavigationAuth = (props) => (
+    <ul>
+      <li>Hi { props.authUser.email }</li>
+      <li><Link to={ROUTES.PROFILE}>Profile</Link></li>
+      <li><Link to={ROUTES.ABOUT}>About</Link></li>
+      <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
+      <li><SignOutButton /></li>
+    </ul>
+);
+
+
+const NavigationNonAuth = () => (
+  <ul>
+    <li><Link to={ROUTES.LANDING}>Landing</Link></li>
+    <li><Link to={ROUTES.ABOUT}>About</Link></li>
+    <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
+    <li><Link to={ROUTES.SIGN_IN}>Sign In</Link></li>
+  </ul>
+);
 
 export default Navigation;

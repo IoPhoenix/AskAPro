@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { BrowserRouter as Router,  Route } from 'react-router-dom';
+import { withFirebase } from './Firebase';
 import Navigation from './Navigation';
 import LandingPage from './Landing';
 import SignUpPage from './SignUp';
@@ -12,13 +13,37 @@ import AdminPage from './Admin';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';
+
 // import withAuthentication from './withAuthentication';
 
-const App = () => {
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authUser: null,
+    };
+  }
+
+  componentDidMount() {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
+  // remove the listener if the component unmounts:
+  componentWillUnmount() {
+    this.listener();
+  }
+
+
+  render() {
     return (
       <Router>
-         <div>
-            <Navigation />
+        <div>
+          <Navigation authUser={this.state.authUser} />
 
             <hr/>
 
@@ -59,10 +84,11 @@ const App = () => {
               component={() => <AdminPage />}
             />
       </div>
-    </Router>
-    )
-}
+      </Router>
+     );
+    }
+  }
+  
 // wrap the App in a session handling higher order component
 // to abstract the session handling logic from App component
-// export default withAuthentication(App);
-export default App;
+export default withFirebase(App);

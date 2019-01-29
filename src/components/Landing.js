@@ -4,7 +4,7 @@ import React from 'react';
 
 const LandingPage = () =>
   <div>
-    <p>Landing page is the page users see for the first time</p>
+    <h1>Landing page is the page users see for the first time</h1>
     {/* <Hero/>
     <UserList limit={1}/> */}
   </div>
