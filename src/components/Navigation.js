@@ -15,6 +15,7 @@ const NavigationAuth = ({authUser}) => (
       <li>Hi {authUser.email}</li>
       <li><Link to={ROUTES.HOME}>Home</Link></li>
       <li><Link to={ROUTES.PROFILE}>Profile</Link></li>
+      <li><Link to={ROUTES.ADMIN}>Admin</Link></li>
       <li><Link to={ROUTES.ABOUT}>About</Link></li>
       <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
       <li><SignOutButton /></li>
