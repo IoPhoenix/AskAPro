@@ -10,7 +10,10 @@ const Navigation = () => (
   </AuthUserContext.Consumer>
 );
 
-const NavigationAuth = ({authUser}) => (
+const NavigationAuth = ({authUser}) => {
+  
+  console.log('authUser in Nav: ', authUser);
+  return (
     <ul>
       <li>Hi {authUser.email}</li>
       <li><Link to={ROUTES.HOME}>Home</Link></li>
@@ -20,7 +23,8 @@ const NavigationAuth = ({authUser}) => (
       <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
       <li><SignOutButton /></li>
     </ul>
-);
+  );
+}
 
 
 const NavigationNonAuth = () => (

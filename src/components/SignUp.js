@@ -39,7 +39,7 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
-    const { username, email, password } = this.state;
+    const { username, email, password, role } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
@@ -50,9 +50,11 @@ class SignUpFormBase extends Component {
           .set({
             username,
             email,
+            role
           });
       })
       .then(authUser => {
+        console.log('authUser is: ', authUser);
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
       })
@@ -65,7 +67,6 @@ class SignUpFormBase extends Component {
 
   render() {
     const { username, email, password, passwordConfirmed, role, error } = this.state;
-
     
     const isInvalid =
       password === '' ||

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import { withAuthorization } from './Session';
 import { withFirebase } from './Firebase';
+
+
 
 
 class AdminPage extends Component {
@@ -54,22 +57,26 @@ class AdminPage extends Component {
     }
   }
   
-  const UserList = ({ users }) => (
+const UserList = ({ users }) => (
     <ul>
-      {users.map(user => (
-        <li key={user.uid}>
-          <span>
-            <strong>ID:</strong> {user.uid}
-          </span>
-          <span>
-            <strong>Email:</strong> {user.email}
-          </span>
-          <span>
-            <strong>Username:</strong> {user.username}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
+    {users.map(user => (
+      <li key={user.uid}>
+        <span>
+          <strong>ID:</strong> {user.uid}
+        </span>
+        <span>
+          <strong>E-Mail:</strong> {user.email}
+        </span>
+        <span>
+          <strong>Username:</strong> {user.username}
+        </span>
+      </li>
+    ))}
+  </ul>
+);
 
-export default withFirebase(AdminPage);
+// const condition = authUser => authUser && authUser.role === 'ADMIN';
+const condition = authUser => !!authUser;
+export default withFirebase(withAuthorization(condition)(AdminPage));
+
+// export default withFirebase(AdminPage);
