@@ -3,7 +3,7 @@ import { withAuthorization } from './Session';
 
 const AccountPage = () => (
     <div>
-      <h1>Account Page</h1>
+      <h1>Profile Page</h1>
     </div>
 );
 

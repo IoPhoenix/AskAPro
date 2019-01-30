@@ -1,4 +1,4 @@
-// source app: https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-router-setup
+// source code: https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-router-setup
 
 import React from 'react';
 import ReactDOM from 'react-dom';
