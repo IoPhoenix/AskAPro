@@ -1,9 +1,16 @@
 import React from 'react';
-import { withAuthorization } from './Session';
+import { AuthUserContext, withAuthorization } from './Session';
 
-const AccountPage = () => (
+const ProfilePage = () => (
     <div>
-      <h1>Profile Page</h1>
+      <h1>Your Profile</h1>
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <div>
+            <p>Email: {authUser.email}</p>
+          </div>
+        )}
+      </AuthUserContext.Consumer>
     </div>
 );
 
@@ -45,4 +52,4 @@ const AccountPage = () => (
 // protect /profile route with authorization rules
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(AccountPage);
+export default withAuthorization(condition)(ProfilePage);
