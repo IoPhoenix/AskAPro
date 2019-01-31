@@ -13,7 +13,6 @@ const Navigation = () => (
 const NavigationAuth = ({authUser}) => {
   
   console.log('authUser in Nav: ', authUser);
-  console.log('is admin in Nav: ', authUser.isAdmin);
   return (
     <ul>
       <li>Hi {authUser.username}</li>
