@@ -3,7 +3,7 @@ import { Link, withRouter, } from 'react-router-dom';
 import { withFirebase } from './Firebase';
 import { SignInLink } from './SignIn';
 import * as ROUTES from '../constants/routes';
-
+import * as ROLES from '../constants/roles';
 
 const SignUpPage = () => {
   return (
@@ -39,7 +39,13 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
-    const { username, email, password, role } = this.state;
+    const { username, email, password, role, isAdmin } = this.state;
+
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
@@ -50,7 +56,8 @@ class SignUpFormBase extends Component {
           .set({
             username,
             email,
-            role
+            role,
+            isAdmin
           });
       })
       .then(authUser => {
