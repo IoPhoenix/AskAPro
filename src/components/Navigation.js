@@ -13,14 +13,15 @@ const Navigation = () => (
 const NavigationAuth = ({authUser}) => {
   
   console.log('authUser in Nav: ', authUser);
+  console.log('is admin in Nav: ', authUser.isAdmin);
   return (
     <ul>
-      <li>Hi {authUser.email}</li>
+      <li>Hi {authUser.username}</li>
       <li><Link to={ROUTES.HOME}>Home</Link></li>
       <li><Link to={ROUTES.PROFILE}>Profile</Link></li>
-      <li><Link to={ROUTES.ADMIN}>Admin</Link></li>
       <li><Link to={ROUTES.ABOUT}>About</Link></li>
       <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
+      {authUser.isAdmin === true && <li><Link to={ROUTES.ADMIN}>Admin</Link></li>}
       <li><SignOutButton /></li>
     </ul>
   );

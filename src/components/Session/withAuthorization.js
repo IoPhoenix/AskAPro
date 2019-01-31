@@ -5,7 +5,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 
-// higher-order component receives a component and a condition function.
+// This higher-order component receives a component and a condition function.
 // based on condition is decides if it should redirect to a public route 
 const withAuthorization = condition => Component => {
     class WithAuthorization extends React.Component {

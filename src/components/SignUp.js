@@ -43,8 +43,8 @@ class SignUpFormBase extends Component {
 
     const roles = [];
 
-    if (isAdmin) {
-      roles.push(ROLES.ADMIN);
+    if (role) {
+      roles.push(ROLES.ROLE);
     }
 
     this.props.firebase

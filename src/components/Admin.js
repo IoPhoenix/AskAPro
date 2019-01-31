@@ -3,8 +3,6 @@ import { withAuthorization } from './Session';
 import { withFirebase } from './Firebase';
 
 
-
-
 class AdminPage extends Component {
     constructor(props) {
       super(props);
@@ -48,6 +46,7 @@ class AdminPage extends Component {
       return (
         <div>
             <h1>Admin</h1>
+            <p>The Admin Page is accessible by every signed in admin user.</p>
 
             {loading && <div>Loading ...</div>}
 
@@ -75,8 +74,6 @@ const UserList = ({ users }) => (
   </ul>
 );
 
-// const condition = authUser => authUser && authUser.role === 'ADMIN';
-const condition = authUser => !!authUser;
-export default withFirebase(withAuthorization(condition)(AdminPage));
+const condition = authUser => authUser && authUser.isAdmin === true;
 
-// export default withFirebase(AdminPage);
+export default withFirebase(withAuthorization(condition)(AdminPage));
