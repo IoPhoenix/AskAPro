@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Hero.css';
 
 const Hero = () =>
     <section className="hero fdb-block fdb-viewport bg-dark">
@@ -10,7 +11,7 @@ const Hero = () =>
             <p className="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there.</p>
             <p className="mt-5">
               <Link to="/signup" className="btn btn-light">Meet a pro</Link>
-              <Link to="/signup" className="btn btn-dark ml-4">Be a pro</Link>
+              <Link to="/signup" className="btn btn-primary ml-4">Be a pro</Link>
             </p>
           </div>
         </div>

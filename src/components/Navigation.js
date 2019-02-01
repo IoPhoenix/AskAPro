@@ -1,39 +1,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthUserContext } from './Session';
+import logo from '../../src/images/logo.svg';
 import SignOutButton from './SignOut';
 import * as ROUTES from '../constants/routes';
+import {  Navbar, Nav, Dropdown, Collapse } from 'bootstrap-4-react';
 
-const Navigation = () => (
-  <AuthUserContext.Consumer>
-      {authUser => authUser ? <NavigationAuth authUser={authUser}/> : <NavigationNonAuth />}
-  </AuthUserContext.Consumer>
-);
+const Navigation = () => {
+  return (
+    <Navbar expand="lg" light>
+        <Navbar.Brand href="#">
+            <img src={logo} height="30" alt="Website Logo"/><span> AskAPro</span>
+        </Navbar.Brand>
+        <Navbar.Toggler target="#navbarSupportedContent" />
+        <Collapse navbar id="navbarSupportedContent">
+          <AuthUserContext.Consumer>
+               {authUser => authUser ? <NavigationAuth authUser={authUser}/> : <NavigationNonAuth />}
+          </AuthUserContext.Consumer>
+        </Collapse>
+    </Navbar>
+  )
+}
 
 const NavigationAuth = ({authUser}) => {
   
   console.log('authUser in Nav: ', authUser);
+
   return (
-    <ul>
-      <li>Hi {authUser.username}</li>
-      <li><Link to={ROUTES.HOME}>Home</Link></li>
-      <li><Link to={ROUTES.PROFILE}>Profile</Link></li>
-      <li><Link to={ROUTES.ABOUT}>About</Link></li>
-      <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
-      {authUser.isAdmin === true && <li><Link to={ROUTES.ADMIN}>Admin</Link></li>}
-      <li><SignOutButton /></li>
-    </ul>
+      <Navbar.Nav mr="auto">
+        <Nav.Item active>
+          <Link to={ROUTES.HOME} className="nav-link">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link to={ROUTES.ABOUT} className="nav-link">About</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link to={ROUTES.TIPS} className="nav-link">Interview Tips</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link to={ROUTES.CONTACT} className="nav-link">Contact</Link>
+        </Nav.Item>
+        <Nav.Item dropdown>
+            <Nav.Link dropdownToggle>Hi {authUser.username}</Nav.Link>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                  <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                  {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+        </Nav.Item>
+        <Nav.Item>
+            <SignOutButton />
+        </Nav.Item>
+      </Navbar.Nav>
   );
 }
 
 
-const NavigationNonAuth = () => (
-  <ul>
-    <li><Link to={ROUTES.ABOUT}>About</Link></li>
-    <li><Link to={ROUTES.TIPS}>Interview Tips</Link></li>
-    <li><Link to={ROUTES.CONTACT}>Contact</Link></li>
-    <li><Link to={ROUTES.SIGN_IN}>Sign In</Link></li>
-  </ul>
-);
+const NavigationNonAuth = () =>
+  <Navbar.Nav mr="auto">
+    <Nav.Item active>
+      <Link to={ROUTES.HOME} className="nav-link">Home</Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Link to={ROUTES.ABOUT} className="nav-link">About</Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Link to={ROUTES.TIPS} className="nav-link">Interview Tips</Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Link to={ROUTES.CONTACT} className="nav-link">Contact</Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Link to={ROUTES.SIGN_IN} className="btn btn-outline-primary ml-md-3">Sign In</Link>
+    </Nav.Item>
+  </Navbar.Nav>
 
 export default Navigation;
