@@ -8,9 +8,9 @@ import * as ROLES from '../constants/roles';
 const SignUpPage = () => {
   return (
     <div>
-      <h1>Sign Up</h1>
-      <SignUpForm />    
-      <SignInLink />
+      <SignUpForm>    
+        <SignInLink />
+      </SignUpForm>
     </div>  
   )
 }
@@ -85,67 +85,109 @@ class SignUpFormBase extends Component {
     
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-            name="username"
-            value={username}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Full Name"
-          />
-          <input
-            name="email"
-            value={email}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Email Address"
-          />
-          <input
-            name="password"
-            value={password}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            name="passwordConfirmed"
-            value={passwordConfirmed}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <div>
-            <input 
-              type="radio"
-              name="role"
-              value="pro"
-              onChange={this.onChange} />
-            <label htmlFor="pro">I'm a pro</label>
+      <section className="fdb-block">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-lg-7 col-md-5 text-center">
+              <div className="fdb-box fdb-touch">
+                <div className="row">
+                  <div className="col">
+                    <h1>Register</h1>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col mt-4">
+                    <input 
+                      name="username"
+                      value={username}
+                      onChange={this.onChange}
+                      type="text"
+                      placeholder="Full Name"
+                      className="form-control" />
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <input 
+                      name="email"
+                      value={email}
+                      onChange={this.onChange}
+                      type="text"
+                      placeholder="Email Address"
+                      className="form-control" />
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <input 
+                      name="password"
+                      value={password}
+                      onChange={this.onChange}
+                      type="password"
+                      placeholder="Password"
+                      className="form-control mb-1" />
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <input 
+                      name="passwordConfirmed"
+                      value={passwordConfirmed}
+                      onChange={this.onChange}
+                      type="password"
+                      placeholder="Confirm Password"
+                      className="form-control mb-1" />
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col-6 text-left">
+                    <input 
+                      type="radio"
+                      name="role"
+                      value="pro"
+                      onChange={this.onChange} />
+                    <label htmlFor="pro"> I'm a pro</label>
 
-            <input 
-              type="radio" 
-              name="role"
-              value="jobseeker" 
-              onChange={this.onChange} />
-            <label htmlFor="jobseeker">I'm a job seeker</label><br/>
-            <small>*You can change your status later</small>
+                    <input 
+                      type="radio" 
+                      name="role"
+                      value="jobseeker" 
+                      onChange={this.onChange} />
+                    <label htmlFor="jobseeker"> I'm a job seeker</label><br/>
+                    <small>* You can change your role later</small>
+                  </div>
+
+                  { this.props.children}
+
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <button 
+                      disabled={isInvalid}
+                      className="btn btn-primary" 
+                      type="button" 
+                      onSubmit={this.onSubmit}>
+                        Sign Up
+                    </button>
+                    { error && <p>{error.message}</p> }
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <button
-            disabled={isInvalid}
-            type="submit">Sign Up</button>
-
-          { error && <p>{error.message}</p> }
-      </form>
+        </div>
+      </section>
     );
   }
 }
 
 const SignUpLink = () => {
   return (
-    <p>
-      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
+    <div className="col-6">
+      <p className="text-right">
+        <Link to={ROUTES.SIGN_UP}>Don't have an account?</Link>
+      </p>
+    </div>
   )
 }
 

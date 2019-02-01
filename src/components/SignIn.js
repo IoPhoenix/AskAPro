@@ -83,9 +83,11 @@ class SignInFormBase extends Component {
 
 const SignInLink = () => {
   return (
-    <p>
-      Already have an account? <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </p>
+    <div className="col-6">
+      <p className="text-right">
+        <Link to={ROUTES.SIGN_IN}>Already have an account?</Link>
+      </p>
+    </div>
   )
 }
 
