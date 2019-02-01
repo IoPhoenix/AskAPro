@@ -39,6 +39,8 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
+    console.log('Sign up button was clicked');
+
     const { username, email, password, role, isAdmin } = this.state;
 
     const roles = [];
@@ -166,7 +168,7 @@ class SignUpFormBase extends Component {
                       disabled={isInvalid}
                       className="btn btn-primary" 
                       type="button" 
-                      onSubmit={this.onSubmit}>
+                      onClick={this.onSubmit}>
                         Sign Up
                     </button>
                     { error && <p>{error.message}</p> }

@@ -28,6 +28,8 @@ class SignInFormBase extends Component {
     }
   
     onSubmit = (event) => {
+      console.log('Sign in button was clicked!');
+
         const { email, password } = this.state;
 
         this.props.firebase
@@ -98,9 +100,10 @@ class SignInFormBase extends Component {
                             disabled={isInvalid}
                             className="btn btn-primary" 
                             type="button" 
-                            onSubmit={this.onSubmit}>
+                            onClick={this.onSubmit}>
                               Sign In
                           </button>
+                          
                           { error && <p>{error.message}</p> }
                         </div>
                       </div>
