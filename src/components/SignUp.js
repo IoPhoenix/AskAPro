@@ -117,7 +117,7 @@ class SignUpFormBase extends Component {
                       className="form-control" />
                   </div>
                 </div>
-                <div className="row mt-4">
+                <div className="row align-items-center mt-4">
                   <div className="col">
                     <input 
                       name="password"
@@ -183,7 +183,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => {
   return (
-    <div className="col-6">
+    <div>
       <p className="text-right">
         <Link to={ROUTES.SIGN_UP}>Don't have an account?</Link>
       </p>

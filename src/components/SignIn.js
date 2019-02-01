@@ -7,9 +7,9 @@ import * as ROUTES from '../constants/routes';
 
 const SignInPage = () => (
     <div>
-      <h1>SignIn</h1>
-      <SignInForm />
-      <SignUpLink />
+      <SignInForm>
+        <SignUpLink />
+      </SignInForm>
     </div>
   );
 
@@ -56,27 +56,59 @@ class SignInFormBase extends Component {
               !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     
         return (
-          <form onSubmit={this.onSubmit}>
-            <input
-              name="email"
-              value={email}
-              onChange={this.onChange}
-              type="text"
-              placeholder="Email Address"
-            />
-            <input
-              name="password"
-              value={password}
-              onChange={this.onChange}
-              type="password"
-              placeholder="Password"
-            />
-            <button disabled={isInvalid} type="submit">
-              Sign In
-            </button>
-    
-            {error && <p>{error.message}</p>}
-          </form>
+            <section className="fdb-block">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-12 col-md-8 col-lg-7 col-md-5 text-center">
+                    <div className="fdb-box fdb-touch">
+                      <div className="row">
+                        <div className="col">
+                          <h1>Sign In</h1>
+                        </div>
+                      </div>
+                      
+                      <div className="row mt-4">
+                        <div className="col">
+                          <input 
+                            name="email"
+                            value={email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                            className="form-control" />
+                        </div>
+                      </div>
+                      <div className="row align-items-center mt-4">
+                        <div className="col">
+                          <input 
+                            name="password"
+                            value={password}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Password"
+                            className="form-control mb-1" />
+
+                            { this.props.children}
+
+                        </div>
+                      </div>
+                      <div className="row mt-4">
+                        <div className="col">
+                          <button 
+                            disabled={isInvalid}
+                            className="btn btn-primary" 
+                            type="button" 
+                            onSubmit={this.onSubmit}>
+                              Sign In
+                          </button>
+                          { error && <p>{error.message}</p> }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
         );
       }
     }
