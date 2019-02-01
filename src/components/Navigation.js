@@ -27,8 +27,8 @@ const NavigationAuth = ({authUser}) => {
   console.log('authUser in Nav: ', authUser);
 
   return (
-      <Navbar.Nav mr="auto">
-        <Nav.Item active>
+      <Navbar.Nav ml="auto">
+        <Nav.Item>
           <Link to={ROUTES.HOME} className="nav-link">Home</Link>
         </Nav.Item>
         <Nav.Item>
@@ -43,16 +43,10 @@ const NavigationAuth = ({authUser}) => {
         <Nav.Item dropdown>
             <Nav.Link dropdownToggle>Hi {authUser.username}</Nav.Link>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                  <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                  {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
-              </Dropdown.Item>
+                <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
+                {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
+                <SignOutButton />
             </Dropdown.Menu>
-        </Nav.Item>
-        <Nav.Item>
-            <SignOutButton />
         </Nav.Item>
       </Navbar.Nav>
   );
@@ -60,22 +54,22 @@ const NavigationAuth = ({authUser}) => {
 
 
 const NavigationNonAuth = () =>
-  <Navbar.Nav mr="auto">
-    <Nav.Item active>
-      <Link to={ROUTES.HOME} className="nav-link">Home</Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Link to={ROUTES.ABOUT} className="nav-link">About</Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Link to={ROUTES.TIPS} className="nav-link">Interview Tips</Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Link to={ROUTES.CONTACT} className="nav-link">Contact</Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Link to={ROUTES.SIGN_IN} className="btn btn-outline-primary ml-md-3">Sign In</Link>
-    </Nav.Item>
-  </Navbar.Nav>
+    <Navbar.Nav ml="auto">
+      <Nav.Item>
+        <Link to={ROUTES.HOME} className="nav-link">Home</Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Link to={ROUTES.ABOUT} className="nav-link">About</Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Link to={ROUTES.TIPS} className="nav-link">Interview Tips</Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Link to={ROUTES.CONTACT} className="nav-link">Contact</Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Link to={ROUTES.SIGN_IN} className="btn btn-outline-primary ml-md-3">Login</Link>
+      </Nav.Item>
+    </Navbar.Nav>
 
 export default Navigation;

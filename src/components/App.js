@@ -6,8 +6,9 @@ import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
 import HomePage from './Home';
-import AboutPage from './About';
-import ContactPage from './Contact';
+import AboutPage from './About/About';
+import InterviewTipsPage from './InterviewTips/InterviewTips';
+import ContactPage from './Contact/Contact';
 import AdminPage from './Admin';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
@@ -52,6 +53,10 @@ const App = () => (
         <Route
           exact path={routes.ABOUT}
           component={() => <AboutPage />}
+        />
+        <Route
+          exact path={routes.TIPS}
+          component={() => <InterviewTipsPage />}
         />
         <Route
           exact path={routes.CONTACT}
