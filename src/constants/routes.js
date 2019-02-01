@@ -7,3 +7,4 @@ export const CONTACT = '/contact';
 export const PROFILE = '/profile';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
+export const TIPS = '/interview-tips';

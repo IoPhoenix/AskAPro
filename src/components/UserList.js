@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
+import User from './User';
 
 
 // this components gets list of all users from database
@@ -47,43 +48,45 @@ class UserList extends Component {
         <div>
             {loading && <div>Loading ...</div>}
 
-            <Users users={users} target={this.props.target}/>
+            <Users users={users} target={this.props.target} limit={this.props.limit}/>
         </div>
       );
     }
 }
 
 
-const Users = ({ users, target }) => {
-    console.log('From Users, target is: ', target);
+const Users = ({ users, target, limit }) => {
+    let currentUsers = 'users';
 
     // show only job seekeres to pros and vice versa
     // otherwise show all users to admin
     if (target === 'pro') {
+        currentUsers = 'jobseeker';
         users = users.filter(user => user.role === 'jobseeker');
     } else if (target === 'jobseeker') {
+        currentUsers = 'pros';
         users = users.filter(user => user.role === 'pro');
-    } 
+    }
+
+    // limit number of users for landing page
+    if (limit) {
+        users = users.slice(0, limit);
+    }
 
     return (
-        <ul>
-            {users.map(user => (
-                <li key={user.uid}>
-                    <span>
-                    <strong>ID:</strong> {user.uid}
-                    </span>
-                    <span>
-                    <strong>E-Mail:</strong> {user.email}
-                    </span>
-                    <span>
-                    <strong>Username:</strong> {user.username}
-                    </span>
-                    <span>
-                    <strong>Role:</strong> {user.role}
-                    </span>
-                </li>
-                ))}
-        </ul>
+        <section className="fdb-block team-4">
+            <div className="container">
+                <div className="row text-center justify-content-center">
+                    <div className="col-8">
+                    <h1>Available {currentUsers}</h1>
+                    </div>
+                </div>
+            
+                <div className="row text-center mt-5">
+                    { users.map((user, index) => <User key={user.uid} user={user} index={index} />) }
+                </div>
+            </div>
+        </section>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Hero = () =>
   <div className="hero">
@@ -7,8 +7,6 @@ const Hero = () =>
     <div className="buttons buttons--inline">
         <Link to="/signup">Meet a pro</Link>
         <Link to="/signup">Be a pro</Link>
-        {/* <button>Meet a pro</button> */}
-        {/* <button>Be a pro</button> */}
     </div>
   </div>
 
