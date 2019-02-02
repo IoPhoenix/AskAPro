@@ -1,5 +1,8 @@
 import React from 'react';
 import importAll from '../helpers';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
+
 
 const images = importAll(require.context('../images/people', false, /\.(png|jpe?g|svg)$/));
 
@@ -9,6 +12,7 @@ const User = ({ user, index }) =>
         <h3><strong>{user.username}</strong></h3>
         <p>Position at Company</p>
         <p>Introduction text about this user</p>
+        <button><Link to={ROUTES.PROFILE}>See Profile</Link></button>
    </div>
 
 
