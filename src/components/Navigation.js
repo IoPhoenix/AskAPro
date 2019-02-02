@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthUserContext } from './Session';
-import logo from '../../src/images/logo.svg';
+import {logo} from '../../src/images/';
 import SignOutButton from './SignOut';
 import * as ROUTES from '../constants/routes';
 import {  Navbar, Nav, Dropdown, Collapse } from 'bootstrap-4-react';
