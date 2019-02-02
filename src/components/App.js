@@ -20,7 +20,7 @@ import { withAuthentication } from './Session';
 const App = () => (
     <Router>
       <div>
-        <header>
+        <header className="mb-5">
           <div className="container">
               <Navigation />
             </div>

@@ -9,9 +9,17 @@ import {  Navbar, Nav, Dropdown, Collapse } from 'bootstrap-4-react';
 const Navigation = () => {
   return (
     <Navbar expand="lg" light>
-        <Navbar.Brand href="#">
-            <img src={logo} height="30" alt="Website Logo"/><span> AskAPro</span>
-        </Navbar.Brand>
+
+        <AuthUserContext.Consumer>
+              {authUser => authUser ?
+                    <Link to={ROUTES.HOME} className="navbar-brand">
+                      <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
+                    </Link> :
+                    <Link to={ROUTES.LANDING} className="navbar-brand">
+                      <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
+                    </Link> }
+        </AuthUserContext.Consumer>
+           
         <Navbar.Toggler target="#navbarSupportedContent" />
         <Collapse navbar id="navbarSupportedContent">
           <AuthUserContext.Consumer>
@@ -56,7 +64,7 @@ const NavigationAuth = ({authUser}) => {
 const NavigationNonAuth = () =>
     <Navbar.Nav ml="auto">
       <Nav.Item>
-        <Link to={ROUTES.HOME} className="nav-link">Home</Link>
+        <Link to={ROUTES.LANDING} className="nav-link">Home</Link>
       </Nav.Item>
       <Nav.Item>
         <Link to={ROUTES.ABOUT} className="nav-link">About</Link>
@@ -71,5 +79,6 @@ const NavigationNonAuth = () =>
         <Link to={ROUTES.SIGN_IN} className="btn btn-outline-primary ml-md-3">Login</Link>
       </Nav.Item>
     </Navbar.Nav>
+
 
 export default Navigation;

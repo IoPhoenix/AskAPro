@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { SignUpLink } from './SignUp';
 import { withFirebase } from './Firebase';
+import { Alert } from 'bootstrap-4-react';
 import * as ROUTES from '../constants/routes';
 
 
@@ -65,7 +66,7 @@ class SignInFormBase extends Component {
                     <div className="fdb-box fdb-touch">
                       <div className="row">
                         <div className="col">
-                          <h1>Sign In</h1>
+                          <h1>Log In</h1>
                         </div>
                       </div>
                       
@@ -98,13 +99,13 @@ class SignInFormBase extends Component {
                         <div className="col">
                           <button 
                             disabled={isInvalid}
-                            className="btn btn-primary" 
+                            className="btn btn-primary mb-3" 
                             type="button" 
                             onClick={this.onSubmit}>
-                              Sign In
+                              Submit
                           </button>
                           
-                          { error && <p>{error.message}</p> }
+                          { error && <Alert danger>{error.message}</Alert>}
                         </div>
                       </div>
                     </div>

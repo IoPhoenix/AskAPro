@@ -3,7 +3,7 @@ import Hero from './Hero/Hero';
 import UserList from './UserList';
 
 const LandingPage = () =>
-  <div class="container">
+  <div>
     <Hero/>
     <UserList />
   </div>

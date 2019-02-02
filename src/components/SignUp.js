@@ -3,6 +3,7 @@ import { Link, withRouter, } from 'react-router-dom';
 import { withFirebase } from './Firebase';
 import { SignInLink } from './SignIn';
 import * as ROUTES from '../constants/routes';
+import { Alert } from 'bootstrap-4-react';
 import * as ROLES from '../constants/roles';
 
 const SignUpPage = () => {
@@ -166,12 +167,12 @@ class SignUpFormBase extends Component {
                   <div className="col">
                     <button 
                       disabled={isInvalid}
-                      className="btn btn-primary" 
+                      className="btn btn-primary mb-3" 
                       type="button" 
                       onClick={this.onSubmit}>
-                        Sign Up
+                        Submit
                     </button>
-                    { error && <p>{error.message}</p> }
+                    { error && <Alert danger>{error.message}</Alert>}
                   </div>
                 </div>
               </div>
