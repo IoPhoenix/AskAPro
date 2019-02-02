@@ -82,7 +82,7 @@ const Users = ({ users, target, limit }) => {
                     </div>
                 </div>
             
-                <div className="row text-center mt-5">
+                <div className="row text-center">
                     { users.map((user, index) => <User key={user.uid} user={user} index={index} />) }
                 </div>
             </div>

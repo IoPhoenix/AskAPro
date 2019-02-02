@@ -1,11 +1,13 @@
 import React from 'react';
+import importAll from '../helpers';
+
+const images = importAll(require.context('../images/people', false, /\.(png|jpe?g|svg)$/));
 
 const User = ({ user, index }) => 
-    <div className="col-3">
-        <img alt="User portrait" className="img-fluid rounded" src={`../../src/images/people/${index+1}.jpg`} />
+    <div className="col-3 mt-5">
+        <img alt="User portrait" className="img-fluid rounded" src={images[index + 1]} />
         <h3><strong>{user.username}</strong></h3>
-        <p>Position</p>
-        <p>Company</p>
+        <p>Position at Company</p>
         <p>Introduction text about this user</p>
    </div>
 
