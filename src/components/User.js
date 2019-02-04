@@ -12,7 +12,7 @@ const User = ({ user, index }) =>
         <h3><strong>{user.username}</strong></h3>
         <p>Position at Company</p>
         <p>Introduction text about this user</p>
-        <button><Link to={ROUTES.PROFILE}>See Profile</Link></button>
+        <Link to={ROUTES.PROFILE} className="btn btn-primary">See Profile</Link>
    </div>
 
 

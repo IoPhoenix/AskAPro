@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { withFirebase } from './Firebase';
-import User from './User';
+import { withFirebase } from '../Firebase';
+import User from '../User';
+import './UserList.css';
 
 
 // this components gets list of all users from database
@@ -74,7 +75,7 @@ const Users = ({ users, target, limit }) => {
     }
 
     return (
-        <section className="fdb-block team-4">
+        <section className="fdb-block team-4 user-list">
             <div className="container">
                 <div className="row text-center justify-content-center">
                     <div className="col-8">

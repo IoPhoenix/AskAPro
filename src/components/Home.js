@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthUserContext } from './Session';
-import UserList from './UserList';
+import UserList from './UserList/UserList';
 // import UserFilter from './UserFilter';
 import { withAuthorization } from './Session';
 import { Jumbotron } from 'bootstrap-4-react';
@@ -11,7 +11,7 @@ import { Jumbotron } from 'bootstrap-4-react';
 const HomePage = () => {
   return (
     <div className="container">
-      <Jumbotron>
+      <Jumbotron className="mt-5">
           <h1>Home Page is where users are redirected after sign in or sign up</h1>
       </Jumbotron>
 

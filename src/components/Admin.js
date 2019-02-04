@@ -1,17 +1,20 @@
 import React from 'react';
 import { withAuthorization } from './Session';
 import { withFirebase } from './Firebase';
-import UserList from './UserList';
+import UserList from './UserList/UserList';
+import { Jumbotron } from 'bootstrap-4-react';
 
 
 const AdminPage = () => {
   return (
-    <div>
-        <h1>Admin</h1>
-        <p>The Admin Page is accessible by every signed in admin user.</p>
-        
-         <UserList target='admin'/>
-    </div>
+    <div className="container">
+      <Jumbotron>
+          <h1>Admin</h1>
+          <h4>The Admin Page is accessible by every signed in admin user.</h4>
+      </Jumbotron>
+      
+      <UserList target='admin'/>
+      </div>
   )
 }
 
