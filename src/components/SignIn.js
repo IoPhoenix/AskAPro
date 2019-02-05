@@ -10,6 +10,7 @@ const SignInPage = () => (
     <div>
       <SignInForm>
         <SignInGoogle />
+        <SignInFacebook />
         <SignUpLink />
       </SignInForm>
     </div>
@@ -116,7 +117,7 @@ class SignInFormBase extends Component {
           </section>
         );
       }
-  }
+}
 
 class SignInGoogleBase extends Component {
       constructor(props) {
@@ -137,8 +138,7 @@ class SignInGoogleBase extends Component {
               .user(socialAuthUser.user.uid)
               .set({
                 username: socialAuthUser.user.displayName,
-                email: socialAuthUser.user.email,
-                roles: [],
+                email: socialAuthUser.user.email
               });
         })
         .then(() => {
@@ -165,6 +165,51 @@ class SignInGoogleBase extends Component {
       }
 }
 
+class SignInFacebookBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { error: null };
+  }
+
+  onSubmit = event => {
+    this.props.firebase
+      .doSignInWithFacebook()
+      .then(socialAuthUser => {
+
+          // Create a user in Firebase Realtime Database:
+        return this.props.firebase
+          .user(socialAuthUser.user.uid)
+          .set({
+            username: socialAuthUser.additionalUserInfo.profile.name,
+            email: socialAuthUser.additionalUserInfo.profile.email
+          });
+        })
+        .then(() => {
+          this.setState({ error: null });
+          this.props.history.push(ROUTES.HOME);
+      })
+      .catch(error => {
+          this.setState({ error });
+      });
+
+      event.preventDefault();
+    };
+
+
+    render() {
+      const { error } = this.state;
+
+      return (
+        <form onSubmit={this.onSubmit}>
+          <button type="submit">Sign In with Facebook</button>
+            {error && <p>{error.message}</p>}
+          </form>
+        );
+      }
+}
+
+
 const SignInLink = () => {
   return (
     <div className="col-6">
@@ -177,6 +222,7 @@ const SignInLink = () => {
 
 const SignInForm = withRouter(withFirebase(SignInFormBase));
 const SignInGoogle = withRouter(withFirebase(SignInGoogleBase));
+const SignInFacebook = withRouter(withFirebase(SignInFacebookBase));
 
 
 export default SignInPage;
@@ -184,5 +230,6 @@ export default SignInPage;
 export { 
     SignInForm,
     SignInLink,
-    SignInGoogle
+    SignInGoogle,
+    SignInFacebook
  };
