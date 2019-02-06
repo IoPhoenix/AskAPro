@@ -4,6 +4,8 @@ import { withFirebase } from './Firebase';
 import * as ROUTES from '../constants/routes';
 import { Alert } from 'bootstrap-4-react';
 import * as ROLES from '../constants/roles';
+import './SignIn/SignIn.css';
+
 
 
 const SignUpPage = () => {
@@ -122,7 +124,7 @@ class SignUpFormBase extends Component {
               <div className="fdb-box fdb-touch">
                 <div className="row">
                   <div className="col">
-                    <h4 className="fdb-box_heading">Create your account</h4>
+                    <h4 className="fdb-block_heading">Create your account</h4>
                   </div>
                 </div>
                 <div className="row">
@@ -170,8 +172,7 @@ class SignUpFormBase extends Component {
                   </div>
                 </div>
                 <div className="row mt-4">
-                  <div className="col-6 text-left">
-
+                  <div className="col">
                     <div className="form-check form-check-inline">
                         <input 
                           className="form-check-input" 
@@ -200,7 +201,7 @@ class SignUpFormBase extends Component {
                   <div className="col">
                     <button 
                       disabled={isInvalid}
-                      className="btn btn-primary mb-3" 
+                      className="btn btn-primary mb-3 fdb-block_btn" 
                       type="button" 
                       onClick={this.onSubmit}>
                         Sign Up

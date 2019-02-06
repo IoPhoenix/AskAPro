@@ -92,7 +92,7 @@ class SignInFormBase extends Component {
                     <div className="fdb-box fdb-touch">
                       <div className="row">
                         <div className="col">
-                          <h4 className="fdb-box_heading">Log in to your account</h4>
+                          <h4 className="fdb-block_heading">Log in to your account</h4>
                         </div>
                       </div>
                       
@@ -132,7 +132,7 @@ class SignInFormBase extends Component {
                         <div className="col">
                           <button 
                             disabled={isInvalid}
-                            className="btn btn-primary mb-3 fdb-box_btn" 
+                            className="btn btn-primary mb-3 fdb-block_btn" 
                             type="button" 
                             onClick={this.onSubmit}>
                               Log In
@@ -140,7 +140,18 @@ class SignInFormBase extends Component {
                           
                           { error && <Alert danger>{error.message}</Alert>}
                         </div>
+                      </div> {/* /.row */}
+
+                      <div className="row align-items-center mt-4">
+                        <div className="col">
+                          <p className="fdb-block_divider">or</p>
+
+                          <div class="row">
+                            { this.props.children }
+                          </div>
+                        </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -192,10 +203,15 @@ class SignInGoogleBase extends Component {
         const { error } = this.state;
 
         return (
-          <form onSubmit={this.onSubmit}>
-            <button type="submit">Sign In with Google</button>
-            {error && <p>{error.message}</p>}
-          </form>
+          <div className="col">
+            <button 
+              className="btn btn-light btn-block"
+              type="submit" 
+              onClick={this.onSubmit}>
+                Sign In with Google
+              </button>
+            {error && <Alert danger>{error.message}</Alert>}
+          </div>
         );
       }
 }
@@ -240,10 +256,15 @@ class SignInFacebookBase extends Component {
       const { error } = this.state;
 
       return (
-        <form onSubmit={this.onSubmit}>
-          <button type="submit">Sign In with Facebook</button>
-            {error && <p>{error.message}</p>}
-          </form>
+        <div className="col">
+          <button 
+            className="btn btn-light btn-block"
+            type="submit" 
+            onClick={this.onSubmit}>
+              Sign in with Facebook
+            </button>
+            {error && <Alert danger>{error.message}</Alert>}
+          </div>
         );
       }
 }
