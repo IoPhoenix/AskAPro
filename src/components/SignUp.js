@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
 import { withFirebase } from './Firebase';
-import { SignInLink } from './SignIn';
 import * as ROUTES from '../constants/routes';
 import { Alert } from 'bootstrap-4-react';
 import * as ROLES from '../constants/roles';
@@ -123,7 +122,7 @@ class SignUpFormBase extends Component {
               <div className="fdb-box fdb-touch">
                 <div className="row">
                   <div className="col">
-                    <h1>Create your account</h1>
+                    <h4 className="fdb-box_heading">Create your account</h4>
                   </div>
                 </div>
                 <div className="row">

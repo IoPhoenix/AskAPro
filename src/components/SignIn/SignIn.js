@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { SignUpLink } from './SignUp';
-import { withFirebase } from './Firebase';
+import { withFirebase } from '../Firebase';
 import { Alert } from 'bootstrap-4-react';
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from '../../constants/routes';
+import './SignIn.css';
 
 
 const SignInPage = () => (
@@ -34,6 +34,7 @@ const ERROR_MSG_ACCOUNT_EXISTS = `
   this account instead and associate your social accounts on
   your personal account page.`;
 
+
 class SignInFormBase extends Component {
     constructor(props) {
       super(props);
@@ -42,8 +43,6 @@ class SignInFormBase extends Component {
     }
   
     onSubmit = (event) => {
-      console.log('Sign in button was clicked!');
-
         const { email, password } = this.state;
 
         this.props.firebase
@@ -93,7 +92,7 @@ class SignInFormBase extends Component {
                     <div className="fdb-box fdb-touch">
                       <div className="row">
                         <div className="col">
-                          <h1>Log In</h1>
+                          <h4 className="fdb-box_heading">Log in to your account</h4>
                         </div>
                       </div>
                       
@@ -122,9 +121,9 @@ class SignInFormBase extends Component {
 
                       <div className="row align-items-center mt-2">
                         <div className="col">
-                          <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="remember-me" />
-                            <label class="custom-control-label" for="remember-me">Remember me</label>
+                          <div className="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" className="custom-control-input" id="remember-me" />
+                            <label className="custom-control-label" htmlFor="remember-me">Remember me</label>
                           </div>
                         </div>
                       </div>
@@ -133,10 +132,10 @@ class SignInFormBase extends Component {
                         <div className="col">
                           <button 
                             disabled={isInvalid}
-                            className="btn btn-primary mb-3" 
+                            className="btn btn-primary mb-3 fdb-box_btn" 
                             type="button" 
                             onClick={this.onSubmit}>
-                              Submit
+                              Log In
                           </button>
                           
                           { error && <Alert danger>{error.message}</Alert>}
@@ -250,16 +249,6 @@ class SignInFacebookBase extends Component {
 }
 
 
-const SignInLink = () => {
-  return (
-    <div className="col-6">
-      <p className="text-right">
-        <Link to={ROUTES.SIGN_IN}>Already have an account?</Link>
-      </p>
-    </div>
-  )
-}
-
 const SignInForm = withRouter(withFirebase(SignInFormBase));
 const SignInGoogle = withRouter(withFirebase(SignInGoogleBase));
 const SignInFacebook = withRouter(withFirebase(SignInFacebookBase));
@@ -269,7 +258,6 @@ export default SignInPage;
 
 export { 
     SignInForm,
-    SignInLink,
     SignInGoogle,
     SignInFacebook
  };
