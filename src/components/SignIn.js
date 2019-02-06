@@ -11,7 +11,6 @@ const SignInPage = () => (
       <SignInForm>
         <SignInGoogle />
         <SignInFacebook />
-        <SignUpLink />
       </SignInForm>
     </div>
   );
@@ -22,6 +21,18 @@ const INITIAL_STATE = {
   password: '',
   error: null,
 };
+
+const ERROR_CODE_ACCOUNT_EXISTS =
+  'auth/account-exists-with-different-credential';
+
+// if a user signs in with one of the social logins
+// but there is already an account in the system 
+// with this email address, the custom error message shows up
+const ERROR_MSG_ACCOUNT_EXISTS = `
+  An account with an E-Mail address to
+  this social account already exists. Try to login from
+  this account instead and associate your social accounts on
+  your personal account page.`;
 
 class SignInFormBase extends Component {
     constructor(props) {
@@ -65,6 +76,20 @@ class SignInFormBase extends Component {
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-12 col-md-8 col-lg-7 col-md-5 text-center">
+
+                  <div className="row">
+                    <div className="col">
+                      <ul className="nav nav-tabs nav-fill">
+                          <li className="nav-item">
+                            <Link to={ROUTES.SIGN_UP} className="nav-link">Sign Up</Link>
+                          </li>
+                          <li className="nav-item">
+                            <Link to={ROUTES.SIGN_IN} className="active nav-link">Log In</Link>
+                          </li>
+                        </ul>
+                    </div>
+                  </div>
+
                     <div className="fdb-box fdb-touch">
                       <div className="row">
                         <div className="col">
@@ -92,11 +117,18 @@ class SignInFormBase extends Component {
                             type="password"
                             placeholder="Password"
                             className="form-control mb-1" />
-
-                            { this.props.children}
-
                         </div>
                       </div>
+
+                      <div className="row align-items-center mt-2">
+                        <div className="col">
+                          <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" id="remember-me" />
+                            <label class="custom-control-label" for="remember-me">Remember me</label>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="row mt-4">
                         <div className="col">
                           <button 
@@ -146,6 +178,10 @@ class SignInGoogleBase extends Component {
           this.props.history.push(ROUTES.HOME);
         })
         .catch(error => {
+          if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+            error.message = ERROR_MSG_ACCOUNT_EXISTS;
+          }
+
           this.setState({ error });
         });
 
@@ -190,7 +226,11 @@ class SignInFacebookBase extends Component {
           this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
-          this.setState({ error });
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
+        
+        this.setState({ error });
       });
 
       event.preventDefault();

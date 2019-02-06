@@ -6,12 +6,11 @@ import * as ROUTES from '../constants/routes';
 import { Alert } from 'bootstrap-4-react';
 import * as ROLES from '../constants/roles';
 
+
 const SignUpPage = () => {
   return (
     <div>
-      <SignUpForm>    
-        <SignInLink />
-      </SignUpForm>
+      <SignUpForm />
     </div>  
   )
 }
@@ -26,6 +25,16 @@ const INITIAL_STATE = {
   isAdmin: false,
   error: null,
 };
+
+
+const ERROR_CODE_ACCOUNT_EXISTS = 'auth/email-already-in-use';
+
+const ERROR_MSG_ACCOUNT_EXISTS = `
+  An account with this E-Mail address already exists.
+  Try to login with this account instead. If you think the
+  account is already used from one of the social logins, try
+  to sign-in with one of them. Afterward, associate your accounts
+  on your personal account page.`;
 
 
 class SignUpFormBase extends Component {
@@ -69,6 +78,11 @@ class SignUpFormBase extends Component {
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
+        // if user already created an account using a social network:
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
+
         this.setState({ error });
       });
 
@@ -92,10 +106,24 @@ class SignUpFormBase extends Component {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-lg-7 col-md-5 text-center">
+
+            <div className="row">
+                <div className="col">
+                  <ul className="nav nav-tabs nav-fill">
+                      <li className="nav-item">
+                        <Link to={ROUTES.SIGN_UP} className="active nav-link">Sign Up</Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link to={ROUTES.SIGN_IN} className="nav-link">Log In</Link>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+
               <div className="fdb-box fdb-touch">
                 <div className="row">
                   <div className="col">
-                    <h1>Register</h1>
+                    <h1>Create your account</h1>
                   </div>
                 </div>
                 <div className="row">
@@ -144,23 +172,29 @@ class SignUpFormBase extends Component {
                 </div>
                 <div className="row mt-4">
                   <div className="col-6 text-left">
-                    <input 
-                      type="radio"
-                      name="role"
-                      value="pro"
-                      onChange={this.onChange} />
-                    <label htmlFor="pro"> I'm a pro</label>
 
-                    <input 
-                      type="radio" 
-                      name="role"
-                      value="jobseeker" 
-                      onChange={this.onChange} />
-                    <label htmlFor="jobseeker"> I'm a job seeker</label><br/>
-                    <small>* You can change your role later</small>
+                    <div className="form-check form-check-inline">
+                        <input 
+                          className="form-check-input" 
+                          type="radio" 
+                          name="role" 
+                          id="job-seeker" 
+                          value="jobseeker"
+                          onChange={this.onChange} />
+                        <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="roleOption"
+                          id="pro"
+                          value="pro"
+                          onChange={this.onChange} />
+                        <label className="form-check-label" htmlFor="pro">I am a pro</label>
+                      </div>
+                    <p><small>* You can change your role later</small></p>
                   </div>
-
-                  { this.props.children}
 
                 </div>
                 <div className="row mt-4">
@@ -170,7 +204,7 @@ class SignUpFormBase extends Component {
                       className="btn btn-primary mb-3" 
                       type="button" 
                       onClick={this.onSubmit}>
-                        Submit
+                        Sign Up
                     </button>
                     { error && <Alert danger>{error.message}</Alert>}
                   </div>
@@ -182,16 +216,6 @@ class SignUpFormBase extends Component {
       </section>
     );
   }
-}
-
-const SignUpLink = () => {
-  return (
-    <div>
-      <p className="text-right">
-        <Link to={ROUTES.SIGN_UP}>Don't have an account?</Link>
-      </p>
-    </div>
-  )
 }
 
 /*T o redirect a user to another page, we need access to React Router. 
@@ -206,6 +230,5 @@ const SignUpForm = withRouter(withFirebase(SignUpFormBase));
 export default SignUpPage;
 
 export {
-  SignUpForm,
-  SignUpLink,
+  SignUpForm
 };
