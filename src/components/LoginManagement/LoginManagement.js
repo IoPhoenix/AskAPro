@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
+import { Alert } from 'bootstrap-4-react';
+
 
 
 const SIGN_IN_METHODS = [
@@ -109,7 +111,7 @@ class LoginManagementBase extends Component {
                         );
                     })}
                 </div>
-                {error && error.message}
+                {error && <Alert danger>{error.message}</Alert>}
             </div>
         );
     }
@@ -175,24 +177,34 @@ class DefaultLoginToggle extends Component {
             </button>
         ) : (
             <form onSubmit={this.onSubmit}>
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="New Password" />
-                <input
-                    name="passwordConfirmed"
-                    value={passwordConfirmed}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm New Password" />
-                <button
-                    className="btn btn-primary"
-                    disabled={isInvalid}
-                    type="submit">
-                        Confirm
-                </button>
+                 <div className="form-row align-items-center">
+                    <div className="col-auto">  
+                        <input
+                            className="form-control"
+                            name="password"
+                            value={password}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="New Password" />
+                    </div>
+                    <div class="col-auto">
+                        <input
+                            className="form-control"
+                            name="passwordConfirmed"
+                            value={passwordConfirmed}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Confirm New Password" />
+                    </div>
+                    <div class="col">
+                        <button
+                            className="btn btn-primary btn-block mt-3"
+                            disabled={isInvalid}
+                            type="submit">
+                                Submit
+                        </button>
+                    </div>
+                </div>
             </form>
         );
     }
