@@ -1,8 +1,11 @@
 import React from 'react';
+import LoginManagement from './LoginManagement/LoginManagement';
 import { AuthUserContext, withAuthorization } from './Session';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import user from '../images/people/1.jpg';
+
+
 
 const ProfilePage = () => (
      <section className="fdb-block">
@@ -18,6 +21,7 @@ const ProfilePage = () => (
                   <div>
                     <p><strong>Name: </strong> <span>{authUser.username}</span></p>
                     <p><strong>Email: </strong> <span>{authUser.email}</span></p>
+                    <LoginManagement authUser={authUser} />
                     <p><strong>Status: </strong> <em>"Seeking an advice for a front-end position at Google"</em></p>
                     <p className="lead">You are marked as a <strong>job seeker</strong>. Would you like to browse pros?</p>
                   </div>
