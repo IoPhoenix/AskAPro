@@ -18,7 +18,8 @@ const SIGN_IN_METHODS = [
 ];
 
 
-  class LoginManagementBase extends Component {
+// allow user to manage sign in methods:
+class LoginManagementBase extends Component {
     constructor(props) {
         super(props);
             this.state = {
@@ -31,8 +32,19 @@ const SIGN_IN_METHODS = [
         this.fetchSignInMethods();
     }
 
-    onDefaultLoginLink = () => {
+    // password from the child component is added to the authenticated user’s
+    // email address:
+    onDefaultLoginLink = password => {
+        const credential = this.props.firebase.emailAuthProvider.credential(
+            this.props.authUser.email, password
+        );
+
+        this.props.firebase.auth.currentUser
+            .linkAndRetrieveDataWithCredential(credential)
+            .then(this.fetchSignInMethods)
+            .catch(error => this.setState({ error }));
     };
+
 
     fetchSignInMethods = () => {
 
@@ -59,6 +71,7 @@ const SIGN_IN_METHODS = [
             .catch(error => this.setState({ error }));
     };
 
+
     render() {
         const { activeSignInMethods, error } = this.state;
 
@@ -66,16 +79,16 @@ const SIGN_IN_METHODS = [
         // one logiin method should be left as active
         return (
             <div>
-                <p><strong>Sign In Methods:</strong></p>
-                <ul>
+                <p><strong>Manage your login methods:</strong></p>
+                <div className="list-group">
                     {SIGN_IN_METHODS.map(signInMethod => {
 
                         const onlyOneLeft = activeSignInMethods.length === 1;
                         const isEnabled = activeSignInMethods.includes(signInMethod.id);
 
                         return (
-                            <div className="list-group">
-                            {/* <li key={signInMethod.id}> */}
+                            
+                            <div key={signInMethod.id} className="list-group-item">
                                 {signInMethod.id === 'password' ? (
                                     <DefaultLoginToggle
                                         onlyOneLeft={onlyOneLeft}
@@ -91,11 +104,11 @@ const SIGN_IN_METHODS = [
                                         onLink={this.onSocialLoginLink}
                                         onUnlink={this.onUnlink} />
                                 )}
-                            {/* </li> */}
                             </div>
+                            
                         );
                     })}
-                </ul>
+                </div>
                 {error && error.message}
             </div>
         );
@@ -111,21 +124,20 @@ const SocialLoginToggle = ({
     }) =>
         isEnabled ? (
             <button
-                type="button"
-                className="list-group-item list-group-item-action"
+                className="btn btn-primary btn-block"
                 onClick={() => onUnlink(signInMethod.id)}
                 disabled={onlyOneLeft}>
                     Deactivate login with {signInMethod.id}
             </button>
         ):(
             <button
-                type="button"
-                className="list-group-item list-group-item-action"
+                className="btn btn-primary btn-block"
                 onClick={() => onLink(signInMethod.provider)}>
                     Activate login with {signInMethod.id}
             </button>
         );
 
+        
 // component for the default sign-in via email/password:
 class DefaultLoginToggle extends Component {
     constructor(props) {
@@ -156,8 +168,7 @@ class DefaultLoginToggle extends Component {
 
         return isEnabled ? (
             <button
-                type="button"
-                className="list-group-item list-group-item-action"
+                className="btn btn-primary btn-block"
                 onClick={() => onUnlink(signInMethod.id)}
                 disabled={onlyOneLeft} >
                     Deactivate login with {signInMethod.id}
@@ -180,7 +191,7 @@ class DefaultLoginToggle extends Component {
                     className="btn btn-primary"
                     disabled={isInvalid}
                     type="submit">
-                        Link {signInMethod.id}
+                        Confirm
                 </button>
             </form>
         );

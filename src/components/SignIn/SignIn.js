@@ -146,7 +146,7 @@ class SignInFormBase extends Component {
                         <div className="col">
                           <p className="fdb-block_divider">or</p>
 
-                          <div class="row">
+                          <div className="row">
                             { this.props.children }
                           </div>
                         </div>
