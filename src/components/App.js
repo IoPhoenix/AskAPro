@@ -10,7 +10,7 @@ import AboutPage from './About/About';
 import InterviewTipsPage from './InterviewTips/InterviewTips';
 import ContactPage from './Contact/Contact';
 import AdminPage from './Admin';
-import UserDetails from './User';
+import UserDetails from './UserDetails';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import UserItem from '../User';
+import UserItem from '../UserItem';
 import './UserList.css';
 
 
@@ -75,6 +75,7 @@ const Users = ({ users, target, limit }) => {
     }
 
     console.log('From users: users are ', users);
+
     return (
         <section className="fdb-block team-4 user-list">
             <div className="container">

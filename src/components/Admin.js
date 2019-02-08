@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withAuthorization } from './Session';
 import UserList from './UserList/UserList';
-import UserDetails from './User';
+import UserDetails from './UserDetails';
 import { Jumbotron } from 'bootstrap-4-react';
 import * as ROUTES from '../constants/routes';
 
