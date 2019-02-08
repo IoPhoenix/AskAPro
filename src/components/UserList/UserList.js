@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
+import { AuthUserContext } from '../Session';
 import UserItem from '../UserItem';
 import './UserList.css';
 
@@ -74,8 +75,6 @@ const Users = ({ users, target, limit }) => {
         users = users.slice(0, limit);
     }
 
-    console.log('From users: users are ', users);
-
     return (
         <section className="fdb-block team-4 user-list">
             <div className="container">
@@ -85,15 +84,39 @@ const Users = ({ users, target, limit }) => {
                     </div>
                 </div>
             
-                <div className="row text-center">
-                    { users.map((user, index) => {
-                        console.log('User is ', user);
-                        return <UserItem key={user.uid} user={user} index={index} />
-                    })}
+                <div className="row">
+                    <AuthUserContext.Consumer>
+                        {authUser => authUser && authUser.isAdmin ? 
+                            (   <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">UID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { users.map((user, index) =>
+                                            <UserItem key={user.uid} user={user} index={index} authUser={authUser}/>
+                                        )}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <>
+                                    { users.map((user, index) => 
+                                        <UserItem key={user.uid} user={user} index={index} authUser={authUser}/>
+                                    )}
+                                </>
+                            )
+                        }
+                    </AuthUserContext.Consumer>
                 </div>
             </div>
         </section>
     )
 }
+
 
 export default withFirebase(UserList);

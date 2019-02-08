@@ -46,14 +46,13 @@ class UserDetailsBase extends Component {
                 {loading && <div>Loading ...</div>}
 
                 {user && (
-                    <table class="table">
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col">UID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
-                                <th scope="col">Admin</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +61,6 @@ class UserDetailsBase extends Component {
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
-                                <td>{user.isAdmin}</td>
                             </tr>
                         </tbody>
                     </table>

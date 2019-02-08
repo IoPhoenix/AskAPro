@@ -187,7 +187,7 @@ class DefaultLoginToggle extends Component {
                             type="password"
                             placeholder="New Password" />
                     </div>
-                    <div class="col-auto">
+                    <div className="col-auto">
                         <input
                             className="form-control"
                             name="passwordConfirmed"
@@ -196,7 +196,7 @@ class DefaultLoginToggle extends Component {
                             type="password"
                             placeholder="Confirm New Password" />
                     </div>
-                    <div class="col">
+                    <div className="col">
                         <button
                             className="btn btn-primary btn-block mt-3"
                             disabled={isInvalid}
