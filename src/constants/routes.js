@@ -6,5 +6,6 @@ export const ABOUT = '/about';
 export const CONTACT = '/contact';
 export const PROFILE = '/profile';
 export const ADMIN = '/admin';
+export const ADMIN_DETAILS = '/admin/:id';
 export const PASSWORD_FORGET = '/pw-forget';
 export const TIPS = '/interview-tips';
