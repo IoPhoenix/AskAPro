@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import User from '../User';
+import UserItem from '../User';
 import './UserList.css';
 
 
@@ -74,6 +74,7 @@ const Users = ({ users, target, limit }) => {
         users = users.slice(0, limit);
     }
 
+    console.log('From users: users are ', users);
     return (
         <section className="fdb-block team-4 user-list">
             <div className="container">
@@ -84,7 +85,10 @@ const Users = ({ users, target, limit }) => {
                 </div>
             
                 <div className="row text-center">
-                    { users.map((user, index) => <User key={user.uid} user={user} index={index} />) }
+                    { users.map((user, index) => {
+                        console.log('User is ', user);
+                        return <UserItem key={user.uid} user={user} index={index} />
+                    })}
                 </div>
             </div>
         </section>

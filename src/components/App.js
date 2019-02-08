@@ -10,6 +10,7 @@ import AboutPage from './About/About';
 import InterviewTipsPage from './InterviewTips/InterviewTips';
 import ContactPage from './Contact/Contact';
 import AdminPage from './Admin';
+import UserDetails from './User';
 import ProfilePage from './Profile';
 import * as routes from '../constants/routes';
 import './App.css';
@@ -66,6 +67,10 @@ const App = () => (
           exact path={routes.ADMIN}
           component={() => <AdminPage />}
         />
+        <Route
+          exact path={routes.ADMIN_DETAILS} 
+          component={() => <UserDetails />}
+         />
     </div>
     </Router>
 );
