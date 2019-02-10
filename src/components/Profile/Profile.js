@@ -25,15 +25,15 @@ const ProfilePage = () => (
                             <p>San Francisco, California</p>
                         </div>
 
-                        <div className="col col-md-8 fdb-box fdb-touch mt-5">
-                              <div>
-                                <h5 className="d-inline">Email:</h5> <span>{authUser.email}</span>
+                        <div className="col col-md-8 fdb-box fdb-touch mt-5  text-center">
+                              <div className="mb-4">
+                                <h5>Email:</h5> <span>{authUser.email}</span>
                               </div>
-                              <div>
-                                <h5 className="d-inline">Role:</h5> <span>{authUser.role}</span>
+                              <div className="mb-4">
+                                <h5>Role:</h5> <span>{authUser.role}</span>
                               </div>
-                              <div>
-                                <h5 className="d-inline">Status:</h5> <em>"Seeking an advice for a front-end position at Google"</em>
+                              <div className="mb-4">
+                                <h5>Status:</h5> <em>"Seeking an advice for a front-end position at Google"</em>
                               </div>
 
                               <Link to={ROUTES.PROFILE_SETTINGS} className="btn fdb-box__btn mt-3">Edit</Link>
@@ -51,30 +51,34 @@ const ProfilePage = () => (
                                 <div className="col-sm-2 m-sm-auto">
                                   <img alt="Portrait" width="150" className="img-fluid rounded-circle" src={images[1]} />
 
-                                  <h5><strong>Sara Doe</strong></h5>
-                                  <p><a href="#" className="btn btn-light">6 messages</a></p>
+                                  <h5 className="mt-2">Sara Doe</h5>
+                                  <div className="d-flex align-items-start">
+                                    <a href="#" className="btn btn-light btn-sm">6 messages</a>
+                                    <a href="#" class="badge badge-pill badge-primary">1</a>
+                                  </div>
                                 </div>
 
                                 <div className="col-sm-2 m-sm-auto">
                                   <img alt="Portrait" width="150" className="img-fluid rounded-circle" src={images[2]} />
 
-                                  <h5><strong>Sara Doe</strong></h5>
-                                  <p><a href="#" className="btn btn-light">2 messages</a></p>
+                                  <h5 className="mt-2">Sara Doe</h5>
+                                  <a href="#" className="btn btn-light btn-sm">2 messages</a>
                                 </div>
 
                                 <div className="col-sm-2 m-sm-auto">
                                   <img alt="Portrait" width="150" className="img-fluid rounded-circle" src={images[3]} />
 
-                                  <h5><strong>Sara Doe</strong></h5>
-                                  <p><a href="#" className="btn btn-light">Start conversation</a></p>
+                                  <h5 className="mt-2">Sara Doe</h5>
+                                  <a href="#" className="btn btn-primary btn-sm">Contact</a>
                                 </div>
 
                                 <div className="col-sm-2 m-sm-auto">
                                   <img alt="Portrait" width="150" className="img-fluid rounded-circle" src={images[4]} />
 
-                                  <h5><strong>Sara Doe</strong></h5>
-                                  <p><a href="#" className="btn btn-light">3 messages</a></p>                                </div>
-                              </div> {/* /.row */}
+                                  <h5 className="mt-2">Sara Doe</h5>
+                                  <a href="#" className="btn btn-light btn-sm">3 messages</a>
+                                </div>
+                              </div> 
                              </div>
                           </div>
                       </>
