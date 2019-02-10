@@ -5,7 +5,7 @@ import UserList from './UserList/UserList';
 const LandingPage = () =>
   <div>
     <Hero/>
-    <UserList />
+    <UserList limit="4"/>
   </div>
 
 export default LandingPage;

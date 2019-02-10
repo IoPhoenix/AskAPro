@@ -208,7 +208,7 @@ class SignInGoogleBase extends Component {
               className="btn btn-light btn-block"
               type="submit" 
               onClick={this.onSubmit}>
-                Sign In with Google
+                Log In with Google
               </button>
             {error && <Alert danger>{error.message}</Alert>}
           </div>
@@ -261,7 +261,7 @@ class SignInFacebookBase extends Component {
             className="btn btn-light btn-block"
             type="submit" 
             onClick={this.onSubmit}>
-              Sign in with Facebook
+              Log in with Facebook
             </button>
             {error && <Alert danger>{error.message}</Alert>}
           </div>

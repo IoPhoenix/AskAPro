@@ -9,9 +9,10 @@ import HomePage from './Home';
 import AboutPage from './About/About';
 import InterviewTipsPage from './InterviewTips/InterviewTips';
 import ContactPage from './Contact/Contact';
-import AdminPage from './Admin';
+import AdminPage from './Admin/Admin';
 import UserDetails from './UserDetails';
-import ProfilePage from './Profile';
+import ProfilePage from './Profile/Profile';
+import ProfileSettingsPage from './Profile/ProfileSettings';
 import * as routes from '../constants/routes';
 import './App.css';
 import { withAuthentication } from './Session';
@@ -50,6 +51,10 @@ const App = () => (
         <Route
           exact path={routes.PROFILE}
           component={() => <ProfilePage />}
+        />
+        <Route
+          exact path={routes.PROFILE_SETTINGS}
+          component={() => <ProfileSettingsPage />}
         />
         <Route
           exact path={routes.ABOUT}

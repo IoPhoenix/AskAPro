@@ -1,9 +1,9 @@
 import React from 'react';
-import LoginManagement from './LoginManagement/LoginManagement';
-import { AuthUserContext, withAuthorization } from './Session';
+import LoginManagement from '../LoginManagement/LoginManagement';
+import { AuthUserContext, withAuthorization } from '../Session';
 import { Link } from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
-import user from '../images/people/1.jpg';
+import * as ROUTES from '../../constants/routes';
+import user from '../../images/people/1.jpg';
 
 
 

@@ -10,8 +10,8 @@ const Hero = () =>
             <h1>Place where job seekers can ask for a professional advice. Naturally.</h1>
             <p className="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there.</p>
             <p className="mt-5">
-              <Link to="/signup" className="btn btn-light">Meet a pro</Link>
-              <Link to="/signup" className="btn btn-primary ml-4">Be a pro</Link>
+              <Link to="/signup" className="btn btn-light btn-lg">Meet a pro</Link>
+              <Link to="/signup" className="btn btn-primary ml-4 btn-lg">Be a pro</Link>
             </p>
           </div>
         </div>
