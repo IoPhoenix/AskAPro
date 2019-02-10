@@ -81,7 +81,7 @@ class LoginManagementBase extends Component {
         // one logiin method should be left as active
         return (
             <div>
-                <p><strong>Manage your login methods:</strong></p>
+                <h4 className="mb-3">Manage login methods</h4>
                 <div className="list-group">
                     {SIGN_IN_METHODS.map(signInMethod => {
 

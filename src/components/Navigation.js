@@ -45,7 +45,7 @@ const NavigationAuth = ({authUser}) => {
                 <div className="dropdown-item"><strong>{authUser.email}</strong></div>
                 <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
                 {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
-                <Link to={ROUTES.PROFILE_SETTINGS} className="dropdown-item">Account Settings</Link>
+                <Link to={ROUTES.PROFILE_SETTINGS} className="dropdown-item">Profile Settings</Link>
                 <Dropdown.Divider />
                 <SignOutButton />
             </Dropdown.Menu>
