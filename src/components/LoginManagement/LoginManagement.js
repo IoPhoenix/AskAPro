@@ -178,7 +178,7 @@ class DefaultLoginToggle extends Component {
         ) : (
             <form onSubmit={this.onSubmit}>
                  <div className="form-row align-items-center">
-                    <div className="col-auto">  
+                    <div className="col">  
                         <input
                             className="form-control"
                             name="password"
@@ -187,7 +187,7 @@ class DefaultLoginToggle extends Component {
                             type="password"
                             placeholder="New Password" />
                     </div>
-                    <div className="col-auto">
+                    <div className="col">
                         <input
                             className="form-control"
                             name="passwordConfirmed"
@@ -196,15 +196,17 @@ class DefaultLoginToggle extends Component {
                             type="password"
                             placeholder="Confirm New Password" />
                     </div>
-                    <div className="col">
+                    <div className="col-auto">
                         <button
-                            className="btn btn-primary btn-block mt-3"
+                            className="btn btn-primary btn-block"
                             disabled={isInvalid}
                             type="submit">
                                 Submit
                         </button>
                     </div>
                 </div>
+                <div className="text-left"><small>* To activate login with email and password, please enter new password.
+                Your current email will be used by default</small></div>
             </form>
         );
     }
