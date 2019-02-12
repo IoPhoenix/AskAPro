@@ -14,7 +14,7 @@ const INITIAL_STATE = {
     state: '',
     zipCode: '',
     status: '',
-    available: true,
+    availability: true,
     error: ''
 };
 
@@ -52,7 +52,7 @@ class EditProfileBase extends Component {
                                 className="mb-4 img-fluid img-thumbnail rounded-circle fdb-box__image" 
                                 src={user} />
                                 <div className="form-group">
-                                  <label for="exampleFormControlFile1"><h5>Change profile photo</h5></label>
+                                  <label htmlFor="exampleFormControlFile1"><h5>Change profile photo</h5></label>
                                   <input type="file" className="form-control-file fdb-box__avatar mx-auto" name="avatar" />
                                 </div>
                           </div>
@@ -61,7 +61,7 @@ class EditProfileBase extends Component {
                               <h4 className="text-center mb-4">Personal details</h4>
                                   <div className="form-row">
                                     <div className="form-group col-md-6">
-                                      <label for="user-name">First Name*</label>
+                                      <label htmlFor="user-name">First Name*</label>
                                       <input 
                                         type="text" 
                                         className="form-control" 
@@ -70,7 +70,7 @@ class EditProfileBase extends Component {
                                         onChange={this.onChange} />
                                     </div>
                                     <div className="form-group col-md-6">
-                                      <label for="user-surname">Last Name*</label>
+                                      <label htmlFor="user-surname">Last Name*</label>
                                       <input 
                                         type="text" 
                                         className="form-control" 
@@ -82,18 +82,18 @@ class EditProfileBase extends Component {
 
                                   <div className="form-row">
                                     <div className="form-group col-md-6">
-                                      <label for="inputCity">City</label>
+                                      <label htmlFor="inputCity">City</label>
                                       <input type="text" name="city" className="form-control" id="inputCity" />
                                     </div>
                                     <div className="form-group col-md-4">
-                                      <label for="inputState">State</label>
+                                      <label htmlFor="inputState">State</label>
                                       <select id="inputState" name="state" className="form-control">
-                                        <option selected>Choose...</option>
+                                        <option defaultValue="Choose">Choose...</option>
                                         <option>...</option>
                                       </select>
                                     </div>
                                     <div className="form-group col-md-2">
-                                      <label for="inputZip">Zip</label>
+                                      <label htmlFor="inputZip">Zip</label>
                                       <input type="text" name="zipCode" className="form-control" id="inputZip" />
                                     </div>
                                   </div>
@@ -128,10 +128,31 @@ class EditProfileBase extends Component {
                               </div>
 
                               <div className="form-group mt-5">
-                                <label for="user-status"><h5>Shortly describe why are you here</h5></label>
-                                <textarea className="form-control" name="status" id="user-status" rows="3"></textarea>
+                                <div className="form-check">
+                                  <input 
+                                    checked
+                                    className="form-check-input" 
+                                    name="availability" 
+                                    type="checkbox" 
+                                    id="user-availability" 
+                                    onChange={this.onChange} />
+                                  <label className="form-check-label" htmlFor="user-availability">
+                                      Are you available for interviews? Your profile will be visible to others
+                                  </label>
+                                </div>
                               </div>
-    
+
+                              <div className="form-group mt-5">
+                                <label htmlFor="user-status"><h5>Shortly describe why are you here</h5></label>
+                                <textarea 
+                                  className="form-control" 
+                                  name="status"
+                                  id="user-status" 
+                                  rows="3" 
+                                  onChange={this.onChange}>
+                                </textarea>
+                              </div>
+
                             </div>
                                   
                             {/* <button 
