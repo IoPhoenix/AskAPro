@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import UserItem from '../UserItem';
-import './UserList.css';
+import UserItem from './UserItem';
 
 
 // this components gets list of all users from database
-class UserList extends Component {
+class UserManagement extends Component {
     constructor(props) {
       super(props);
   
@@ -36,6 +35,7 @@ class UserList extends Component {
             });
         });
     }
+
     // remove the listener to avoid memory leaks:
     componentWillUnmount() {
         this.props.firebase.users().off();
@@ -46,51 +46,39 @@ class UserList extends Component {
         const { users, loading } = this.state;
 
       return (
-        <div>
-            {loading && <div>Loading ...</div>}
+        <section className="fdb-block team-4 user-list">
+            <div className="container">
+                <div className="row text-center justify-content-center">
+                    <div className="col-8">
+                        { loading && <h1>Loading ...</h1> }
 
-            <Users users={users} target={this.props.target} limit={this.props.limit}/>
-        </div>
+                        <h1>All users</h1>
+                    </div>
+                </div>
+            
+                <div className="row">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">UID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { users.map((user, index) =>
+                                <UserItem key={user.uid} user={user} index={index} />
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
       );
     }
 }
 
 
-const Users = ({ users, target, limit }) => {
-    let currentUsers = '';
-
-    // show only job seekeres to pros and vice versa
-    if (target === 'pro') {
-        currentUsers = 'jobseekers';
-        users = users.filter(user => user.role === 'jobseeker');
-    } else if (target === 'jobseeker') {
-        currentUsers = 'pros';
-        users = users.filter(user => user.role === 'pro');
-    }
-
-    // limit number of users for landing page
-    if (limit) {
-        users = users.slice(0, limit);
-    }
-
-    return (
-        <section className="fdb-block team-4 user-list">
-            <div className="container">
-                <div className="row text-center justify-content-center">
-                    <div className="col-8">
-                    <h1>Available {currentUsers}</h1>
-                    </div>
-                </div>
-            
-                <div className="row">
-                    { users.map((user, index) => 
-                        <UserItem key={user.uid} user={user} index={index} />
-                    )}
-                </div>
-            </div>
-        </section>
-    )
-}
-
-
-export default withFirebase(UserList);
+export default withFirebase(UserManagement);

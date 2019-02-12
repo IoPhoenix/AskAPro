@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withFirebase } from './Firebase';
-import { withAuthorization } from './Session';
+import { withFirebase } from '../Firebase';
+import { withAuthorization } from '../Session';
 
 
 class UserDetailsBase extends Component {
@@ -74,4 +74,4 @@ class UserDetailsBase extends Component {
 const UserDetails = withFirebase(UserDetailsBase);
 const condition = authUser => authUser && authUser.isAdmin === true;
 
-export default  withAuthorization(condition)(UserDetails);
+export default withAuthorization(condition)(UserDetails);

@@ -3,7 +3,7 @@ import { AuthUserContext, withAuthorization } from '../Session';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import user from '../../images/people/1.jpg';
-import './Profile.css';
+import './Profile.min.css';
 import importAll from '../../helpers';
 
 const images = importAll(require.context('../../images/people', false, /\.(png|jpe?g|svg)$/));
