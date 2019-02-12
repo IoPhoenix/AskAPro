@@ -28,6 +28,12 @@ class EditProfileBase extends Component {
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
+        console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
+    };
+
+    onCheckboxChange = event => {
+      this.setState({ [event.target.name]: event.target.checked });
+      console.log('[event.target.name]: ', [event.target.name], 'event.target.checked: ', event.target.checked);
     };
 
     onSubmit() {
@@ -53,7 +59,11 @@ class EditProfileBase extends Component {
                                 src={user} />
                                 <div className="form-group">
                                   <label htmlFor="exampleFormControlFile1"><h5>Change profile photo</h5></label>
-                                  <input type="file" className="form-control-file fdb-box__avatar mx-auto" name="avatar" />
+                                  <input 
+                                    type="file"
+                                    className="form-control-file fdb-box__avatar mx-auto" 
+                                    name="avatar" 
+                                    onChange={this.onChange} />
                                 </div>
                           </div>
   
@@ -83,18 +93,30 @@ class EditProfileBase extends Component {
                                   <div className="form-row">
                                     <div className="form-group col-md-6">
                                       <label htmlFor="inputCity">City</label>
-                                      <input type="text" name="city" className="form-control" id="inputCity" />
+                                      <input 
+                                        type="text" 
+                                        name="city" 
+                                        className="form-control" 
+                                        id="inputCity" 
+                                        onChange={this.onChange}
+                                        />
                                     </div>
                                     <div className="form-group col-md-4">
                                       <label htmlFor="inputState">State</label>
-                                      <select id="inputState" name="state" className="form-control">
-                                        <option defaultValue="Choose">Choose...</option>
-                                        <option>...</option>
+                                      <select id="inputState" name="state" className="form-control" onChange={this.onChange}>
+                                        <option defaultValue="Choose">Choose...</option> 
+                                        <option>California</option>
+                                        <option>New York</option>
                                       </select>
                                     </div>
                                     <div className="form-group col-md-2">
                                       <label htmlFor="inputZip">Zip</label>
-                                      <input type="text" name="zipCode" className="form-control" id="inputZip" />
+                                      <input 
+                                        type="text" 
+                                        name="zipCode" 
+                                        className="form-control" 
+                                        id="inputZip"  
+                                        onChange={this.onChange} />
                                     </div>
                                   </div>
                             </div>
@@ -130,12 +152,12 @@ class EditProfileBase extends Component {
                               <div className="form-group mt-5">
                                 <div className="form-check">
                                   <input 
-                                    checked
+                                    defaultChecked={true}
                                     className="form-check-input" 
                                     name="availability" 
                                     type="checkbox" 
                                     id="user-availability" 
-                                    onChange={this.onChange} />
+                                    onChange={this.onCheckboxChange} />
                                   <label className="form-check-label" htmlFor="user-availability">
                                       Are you available for interviews? Your profile will be visible to others
                                   </label>
@@ -149,18 +171,18 @@ class EditProfileBase extends Component {
                                   name="status"
                                   id="user-status" 
                                   rows="3" 
-                                  onChange={this.onChange}>
+                                  onChange={this.onChange} >
                                 </textarea>
                               </div>
+                              <button 
+                                type="submit" 
+                                className="btn fdb-box__btn fdb-box__btn--centered"
+                                onClick={this.onSubmit}>
+                                  Submit
+                              </button>
 
                             </div>
                                   
-                            {/* <button 
-                              type="submit" 
-                              className="btn btn-primary fdb-box__btn"
-                              onClick={this.onSubmit}>
-                                Submit
-                            </button> */}
                         </>
                       )}
                     </AuthUserContext.Consumer>

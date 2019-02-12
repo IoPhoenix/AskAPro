@@ -18,11 +18,19 @@
 .fdb-box__btn:hover {
   color: white;
   background-color: #ff4342c7;
+  border-color: #ff4342c7;
 }
 
 .fdb-box__btn:focus {
   border: 1px solid #FF4342;
   background-color: #ff4342c7;
+}
+
+.fdb-box__btn--centered {
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fdb-box__image {
