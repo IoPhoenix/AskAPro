@@ -3,7 +3,7 @@ import LoginManagement from '../LoginManagement/LoginManagement';
 import { AuthUserContext, withAuthorization } from '../Session';
 
 
-const ProfileSetttingsPage = () => 
+const AccountSetttingsPage = () => 
     <section className="fdb-block">
         <div className="container">
             <div className="row justify-content-center">
@@ -23,4 +23,4 @@ const ProfileSetttingsPage = () =>
 // protect route with authorization rules:
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(ProfileSetttingsPage);
+export default withAuthorization(condition)(AccountSetttingsPage);

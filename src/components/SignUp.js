@@ -72,7 +72,7 @@ class SignUpFormBase extends Component {
       .then(authUser => {
         console.log('authUser is: ', authUser);
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.EDIT_PROFILE);
       })
       .catch(error => {
         // if user already created an account using a social network:
