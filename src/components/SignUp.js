@@ -194,16 +194,26 @@ class SignUpFormBase extends Component {
                   </div>
 
                 </div>
-                <div className="row mt-4">
+                <div className="row mt-2">
                   <div className="col">
                     <button 
                       disabled={isInvalid}
-                      className="btn btn-primary mb-3 fdb-block_btn" 
+                      className="btn btn-primary mb-2 fdb-block_btn" 
                       type="button" 
                       onClick={this.onSubmit}>
                         Sign Up
                     </button>
                     { error && <Alert danger>{error.message}</Alert>}
+                  </div>
+                </div>
+
+                <div className="row align-items-center mt-4">
+                  <div className="col">
+                    <p className="fdb-block_divider">or</p>
+
+                    <div className="row">
+                      { this.props.children }
+                    </div>
                   </div>
                 </div>
               </div>

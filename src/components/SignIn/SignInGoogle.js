@@ -56,7 +56,7 @@ class SignInGoogleBase extends Component {
             className="btn btn-light btn-block"
             type="submit" 
             onClick={this.onSubmit}>
-              Log In with Google
+              Log in with Google
             </button>
           {error && <Alert danger>{error.message}</Alert>}
         </div>

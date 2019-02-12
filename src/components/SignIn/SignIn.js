@@ -118,11 +118,11 @@ class SignInFormBase extends Component {
                         </div>
                       </div>
 
-                      <div className="row mt-4">
+                      <div className="row mt-2">
                         <div className="col">
                           <button 
                             disabled={isInvalid}
-                            className="btn btn-primary mb-3 fdb-block_btn" 
+                            className="btn btn-primary mb-2 fdb-block_btn" 
                             type="button" 
                             onClick={this.onSubmit}>
                               Log In
