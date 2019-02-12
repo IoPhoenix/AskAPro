@@ -24,3 +24,11 @@
   border: 1px solid #FF4342;
   background-color: #ff4342c7;
 }
+
+.fdb-box__image {
+  background-color: #feb325bf;
+}
+
+.fdb-box__avatar {
+  width: 230px;
+}

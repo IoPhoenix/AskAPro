@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
 import { AuthUserContext, withAuthorization } from '../Session';
+import user from '../../images/icons/user.svg';
+import './Profile.min.css';
 
 
 const INITIAL_STATE = {
@@ -38,11 +40,18 @@ class EditProfileBase extends Component {
                       { authUser => (
                         <>
                           <div className="col col-md-8 text-center fdb-box fdb-touch">
-                              <h1 className="mb-3">Edit your profile</h1>
-                              <img alt="Round user portrait" width="200" className="img-fluid img-thumbnail rounded-circle" src='' />
+                              <h1 className="mb-4">Edit your profile</h1>
+                              <img 
+                                alt="Round user portrait" 
+                                width="160" 
+                                height="160" 
+                                className="mb-4 img-fluid img-thumbnail rounded-circle fdb-box__image" 
+                                src={user} />
+                                <h5>Change profile photo:</h5>
+                                <input type="file" name="avatar" className="fdb-box__avatar mx-auto" />
                           </div>
   
-                          <div className="col col-md-8 fdb-box fdb-touch mt-5  text-center">
+                          <div className="col col-md-8 fdb-box fdb-touch mt-5 text-center">
                                 <div className="mb-4">
                                   <h5>Email:</h5> <span>Edit name</span>
                                 </div>
