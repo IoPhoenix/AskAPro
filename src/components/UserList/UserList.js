@@ -57,7 +57,7 @@ class UserList extends Component {
 
 
 const Users = ({ users, target, limit }) => {
-    let currentUsers = '';
+    let currentUsers = 'users';
 
     // show only job seekeres to pros and vice versa
     if (target === 'pro') {

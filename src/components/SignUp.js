@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link, withRouter, } from 'react-router-dom';
 import { withFirebase } from './Firebase';
-import * as ROUTES from '../constants/routes';
+import SignInFacebook from './SignIn/SignInFacebook';
+import SignInGoogle from './SignIn/SignInGoogle';
 import { Alert } from 'bootstrap-4-react';
+import * as ROUTES from '../constants/routes';
 import * as ROLES from '../constants/roles';
+import * as ERRORS from '../constants/errors';
 import './SignIn/SignIn.css';
 
 
@@ -11,7 +14,10 @@ import './SignIn/SignIn.css';
 const SignUpPage = () => {
   return (
     <div>
-      <SignUpForm />
+      <SignUpForm>
+        <SignInGoogle />
+        <SignInFacebook />
+      </SignUpForm>
     </div>  
   )
 }
@@ -27,15 +33,6 @@ const INITIAL_STATE = {
   error: null,
 };
 
-
-const ERROR_CODE_ACCOUNT_EXISTS = 'auth/email-already-in-use';
-
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with this E-Mail address already exists.
-  Try to login with this account instead. If you think the
-  account is already used from one of the social logins, try
-  to sign-in with one of them. Afterward, associate your accounts
-  on your personal account page.`;
 
 
 class SignUpFormBase extends Component {
@@ -80,8 +77,8 @@ class SignUpFormBase extends Component {
       })
       .catch(error => {
         // if user already created an account using a social network:
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        if (error.code === ERRORS.ERROR_CODE_EMAIL_IN_USE) {
+          error.message = ERRORS.ERROR_MSG_EMAIL_IN_USE;
         }
 
         this.setState({ error });

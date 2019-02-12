@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
+import SignInFacebook from './SignInFacebook';
+import SignInGoogle from './SignInGoogle';
 import { Alert } from 'bootstrap-4-react';
 import * as ROUTES from '../../constants/routes';
 import './SignIn.css';
@@ -21,18 +23,6 @@ const INITIAL_STATE = {
   password: '',
   error: null,
 };
-
-const ERROR_CODE_ACCOUNT_EXISTS =
-  'auth/account-exists-with-different-credential';
-
-// if a user signs in with one of the social logins
-// but there is already an account in the system 
-// with this email address, the custom error message shows up
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with an E-Mail address to
-  this social account already exists. Try to login from
-  this account instead and associate your social accounts on
-  your personal account page.`;
 
 
 class SignInFormBase extends Component {
@@ -161,118 +151,8 @@ class SignInFormBase extends Component {
       }
 }
 
-class SignInGoogleBase extends Component {
-      constructor(props) {
-        super(props);
-
-        this.state = { error: null };
-      }
-
-      onSubmit = event => {
-        this.props.firebase
-          .doSignInWithGoogle()
-          .then(socialAuthUser => {
-
-            console.log('From SignInGoogleBase, socialAuthUser: ', socialAuthUser);
-
-            // create user in Firebase Realtime Database:
-            return this.props.firebase
-              .user(socialAuthUser.user.uid)
-              .set({
-                username: socialAuthUser.user.displayName,
-                email: socialAuthUser.user.email
-              });
-        })
-        .then(() => {
-          this.setState({ error: null });
-          this.props.history.push(ROUTES.HOME);
-        })
-        .catch(error => {
-          if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-            error.message = ERROR_MSG_ACCOUNT_EXISTS;
-          }
-
-          this.setState({ error });
-        });
-
-        event.preventDefault();
-      };
-
-
-      render() {
-        const { error } = this.state;
-
-        return (
-          <div className="col">
-            <button 
-              className="btn btn-light btn-block"
-              type="submit" 
-              onClick={this.onSubmit}>
-                Log In with Google
-              </button>
-            {error && <Alert danger>{error.message}</Alert>}
-          </div>
-        );
-      }
-}
-
-class SignInFacebookBase extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { error: null };
-  }
-
-  onSubmit = event => {
-    this.props.firebase
-      .doSignInWithFacebook()
-      .then(socialAuthUser => {
-
-          // Create a user in Firebase Realtime Database:
-        return this.props.firebase
-          .user(socialAuthUser.user.uid)
-          .set({
-            username: socialAuthUser.additionalUserInfo.profile.name,
-            email: socialAuthUser.additionalUserInfo.profile.email
-          });
-        })
-        .then(() => {
-          this.setState({ error: null });
-          this.props.history.push(ROUTES.HOME);
-      })
-      .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
-        }
-        
-        this.setState({ error });
-      });
-
-      event.preventDefault();
-    };
-
-
-    render() {
-      const { error } = this.state;
-
-      return (
-        <div className="col">
-          <button 
-            className="btn btn-light btn-block"
-            type="submit" 
-            onClick={this.onSubmit}>
-              Log in with Facebook
-            </button>
-            {error && <Alert danger>{error.message}</Alert>}
-          </div>
-        );
-      }
-}
-
 
 const SignInForm = withRouter(withFirebase(SignInFormBase));
-const SignInGoogle = withRouter(withFirebase(SignInGoogleBase));
-const SignInFacebook = withRouter(withFirebase(SignInFacebookBase));
 
 
 export default SignInPage;

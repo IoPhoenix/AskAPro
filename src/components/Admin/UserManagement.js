@@ -49,7 +49,7 @@ class UserManagement extends Component {
         <section className="fdb-block team-4 user-list">
             <div className="container">
                 <div className="row text-center justify-content-center">
-                    <div className="col-8">
+                    <div className="col-8 mb-4">
                         { loading && <h1>Loading ...</h1> }
 
                         <h1>All users</h1>

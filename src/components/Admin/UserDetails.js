@@ -41,7 +41,7 @@ class UserDetailsBase extends Component {
 
         return (
             <div className="container mt-5">
-                <h2>Manage User</h2>
+                <h2 className="mb-4">Manage User</h2>
 
                 {loading && <div>Loading ...</div>}
 
@@ -53,6 +53,7 @@ class UserDetailsBase extends Component {
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +62,7 @@ class UserDetailsBase extends Component {
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
+                                <td><a href="#" className="btn btn-light btn-sm">Change</a></td>
                             </tr>
                         </tbody>
                     </table>

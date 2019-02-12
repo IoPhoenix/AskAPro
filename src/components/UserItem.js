@@ -14,9 +14,9 @@ const UserItem = ({ user, index }) =>
         <AuthUserContext.Consumer>
             {authUser => authUser ?
                 <div className="d-flex justify-content-between">
-                    <a href="#" className="btn btn-primary">Profile</a>
-                    <a href="#" className="btn btn-light">Contact</a>
-                    <a href="#" className="btn btn-danger">♡ Save</a>
+                    <a href="#" className="btn btn-dark btn-sm">Profile</a>
+                    <a href="#" className="btn btn-light btn-sm">Contact</a>
+                    <a href="#" className="btn btn-danger btn-sm">♡ Save</a>
                 </div> : <div>Some more info</div>
             }
         </AuthUserContext.Consumer>

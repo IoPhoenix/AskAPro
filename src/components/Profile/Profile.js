@@ -54,7 +54,7 @@ const ProfilePage = () => (
                                   <h5 className="mt-2">Sara Doe</h5>
                                   <div className="d-flex align-items-start">
                                     <a href="#" className="btn btn-light btn-sm">6 messages</a>
-                                    <a href="#" class="badge badge-pill badge-primary">1</a>
+                                    <a href="#" className="badge badge-pill badge-primary">1</a>
                                   </div>
                                 </div>
 
