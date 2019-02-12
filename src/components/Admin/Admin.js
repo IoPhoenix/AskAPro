@@ -7,6 +7,10 @@ import { Jumbotron } from 'bootstrap-4-react';
 import * as ROUTES from '../../constants/routes';
 
 
+// add admin sdk to the server
+// https://firebase.google.com/docs/admin/setup
+
+
 const AdminPage = () => {
   return (
     <div className="container">

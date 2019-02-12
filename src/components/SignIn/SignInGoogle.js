@@ -51,7 +51,7 @@ class SignInGoogleBase extends Component {
       const { error } = this.state;
 
       return (
-        <div className="col">
+        <div className="col mb-4">
           <button 
             className="btn btn-light btn-block"
             type="submit" 

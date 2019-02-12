@@ -24,7 +24,6 @@ const SignUpPage = () => {
 
 
 const INITIAL_STATE = {
-  username: '',
   email: '',
   password: '',
   passwordConfirmed: '',
@@ -49,7 +48,7 @@ class SignUpFormBase extends Component {
   onSubmit = (event) => {
     console.log('Sign up button was clicked');
 
-    const { username, email, password, role, isAdmin } = this.state;
+    const { email, password, role, isAdmin } = this.state;
 
     const roles = [];
 
@@ -60,11 +59,11 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
+
         // create a user in the Firebase realtime database:
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
-            username,
             email,
             role,
             isAdmin
@@ -88,15 +87,14 @@ class SignUpFormBase extends Component {
   }
 
   render() {
-    const { username, email, password, passwordConfirmed, role, error } = this.state;
+    const { email, password, passwordConfirmed, role, error } = this.state;
     
     const isInvalid =
       password === '' ||
       passwordConfirmed === '' ||
       password !== passwordConfirmed ||
       email === '' ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-      username === '' || role === '';
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || role === '';
     
 
     return (
@@ -122,17 +120,6 @@ class SignUpFormBase extends Component {
                 <div className="row">
                   <div className="col">
                     <h4 className="fdb-block_heading">Create your account</h4>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col mt-4">
-                    <input 
-                      name="username"
-                      value={username}
-                      onChange={this.onChange}
-                      type="text"
-                      placeholder="Full Name"
-                      className="form-control" />
                   </div>
                 </div>
                 <div className="row mt-4">
@@ -184,7 +171,7 @@ class SignUpFormBase extends Component {
                         <input
                           className="form-check-input"
                           type="radio"
-                          name="roleOption"
+                          name="role"
                           id="pro"
                           value="pro"
                           onChange={this.onChange} />

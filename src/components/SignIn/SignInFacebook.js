@@ -48,15 +48,17 @@ class SignInFacebookBase extends Component {
         const { error } = this.state;
   
         return (
-          <div className="col">
-            <button 
-              className="btn btn-light btn-block"
-              type="submit" 
-              onClick={this.onSubmit}>
-                Log in with Facebook
-              </button>
+          <>
+            <div className="col mb-4">
+              <button 
+                className="btn btn-light btn-block"
+                type="submit" 
+                onClick={this.onSubmit}>
+                  Log in with Facebook
+                </button>
+              </div>
               {error && <Alert danger>{error.message}</Alert>}
-            </div>
+          </>
           );
         }
   }
