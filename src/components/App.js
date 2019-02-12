@@ -20,6 +20,7 @@ import { withAuthentication } from './Session';
 
 
 const App = () => (
+
     <Router>
       <div>
         <header>
@@ -76,7 +77,7 @@ const App = () => (
           exact path={routes.ADMIN_DETAILS} 
           component={() => <UserDetails />}
          />
-    </div>
+      </div>
     </Router>
 );
   
