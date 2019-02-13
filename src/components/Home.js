@@ -12,7 +12,7 @@ const HomePage = () => {
   return (
     <div className="container">
       <Jumbotron className="mt-5">
-          <h1>Home Page is where users are redirected after sign in or sign up</h1>
+          <h1>Home Page is where users are redirected after sign in</h1>
       </Jumbotron>
 
       <AuthUserContext.Consumer>

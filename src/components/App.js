@@ -13,7 +13,7 @@ import AdminPage from './Admin/Admin';
 import UserDetails from './Admin/UserDetails';
 import ProfilePage from './Profile/Profile';
 import EditProfilePage from './Profile/EditProfile';
-import ProfileSettingsPage from './Profile/AccountSettings';
+import AccountSettingsPage from './Profile/AccountSettings';
 import * as routes from '../constants/routes';
 import './App.css';
 import { withAuthentication } from './Session';
@@ -60,7 +60,7 @@ const App = () => (
         />
         <Route
           exact path={routes.ACCOUNT_SETTINGS}
-          component={() => <ProfileSettingsPage />}
+          component={() => <AccountSettingsPage />}
         />
         <Route
           exact path={routes.ABOUT}

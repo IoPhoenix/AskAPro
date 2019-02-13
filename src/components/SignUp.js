@@ -5,7 +5,6 @@ import SignInFacebook from './SignIn/SignInFacebook';
 import SignInGoogle from './SignIn/SignInGoogle';
 import { Alert } from 'bootstrap-4-react';
 import * as ROUTES from '../constants/routes';
-import * as ROLES from '../constants/roles';
 import * as ERRORS from '../constants/errors';
 import './SignIn/SignIn.css';
 
@@ -72,6 +71,7 @@ class SignUpFormBase extends Component {
       })
       .then(authUser => {
         console.log('authUser is: ', authUser);
+
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.EDIT_PROFILE);
       })

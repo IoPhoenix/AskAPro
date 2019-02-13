@@ -12,10 +12,9 @@ const INITIAL_STATE = {
     lastName: '',
     city: '',
     state: '',
-    zipCode: '',
+    zip: '',
     status: '',
-    availability: true,
-    error: ''
+    availability: true
 };
 
 
@@ -36,12 +35,28 @@ class EditProfileBase extends Component {
       console.log('[event.target.name]: ', [event.target.name], 'event.target.checked: ', event.target.checked);
     };
 
-    onSubmit() {
-        // send new data to firebase
+    onSubmit = (event) => {
+      console.log('this.state: ', this.state);
+
+      const uid = this.props.firebase.auth.currentUser.uid;
+
+      // send new data to firebase
+      this.props.firebase.doSendUserDetails(uid, this.state,
+        function(error) {
+          if (error) {
+            console.log('error sending data: ', error);
+          } else {
+            console.log('data saved successfully!');
+          }
+      });
+
+      event.preventDefault();
     }
 
 
     render() {
+      const { firstName, lastName, role, city, state, zip, availability, status } = this.state;
+
         return (
             <section className="fdb-block">
             <div className="container">
@@ -59,7 +74,7 @@ class EditProfileBase extends Component {
                                 src={user} />
                                 <div className="form-group">
                                   <label htmlFor="exampleFormControlFile1"><h5>Change profile photo</h5></label>
-                                  <input 
+                                  <input
                                     type="file"
                                     className="form-control-file fdb-box__avatar mx-auto" 
                                     name="avatar" 
@@ -73,6 +88,7 @@ class EditProfileBase extends Component {
                                     <div className="form-group col-md-6">
                                       <label htmlFor="user-name">First Name*</label>
                                       <input 
+                                        value={firstName}
                                         type="text" 
                                         className="form-control" 
                                         name="firstName" 
@@ -82,6 +98,7 @@ class EditProfileBase extends Component {
                                     <div className="form-group col-md-6">
                                       <label htmlFor="user-surname">Last Name*</label>
                                       <input 
+                                        value={lastName}
                                         type="text" 
                                         className="form-control" 
                                         name="lastName" 
@@ -94,6 +111,7 @@ class EditProfileBase extends Component {
                                     <div className="form-group col-md-6">
                                       <label htmlFor="inputCity">City</label>
                                       <input 
+                                        value={city}
                                         type="text" 
                                         name="city" 
                                         className="form-control" 
@@ -103,17 +121,23 @@ class EditProfileBase extends Component {
                                     </div>
                                     <div className="form-group col-md-4">
                                       <label htmlFor="inputState">State</label>
-                                      <select id="inputState" name="state" className="form-control" onChange={this.onChange}>
-                                        <option defaultValue="Choose">Choose...</option> 
-                                        <option>California</option>
-                                        <option>New York</option>
+                                      <select 
+                                          value={state}
+                                          id="inputState" 
+                                          name="state" 
+                                          className="form-control" 
+                                          onChange={this.onChange}>
+                                          <option defaultValue="Choose">Choose...</option> 
+                                          <option>California</option>
+                                          <option>New York</option>
                                       </select>
                                     </div>
                                     <div className="form-group col-md-2">
                                       <label htmlFor="inputZip">Zip</label>
                                       <input 
+                                        value={zip}
                                         type="text" 
-                                        name="zipCode" 
+                                        name="zip" 
                                         className="form-control" 
                                         id="inputZip"  
                                         onChange={this.onChange} />
@@ -126,6 +150,7 @@ class EditProfileBase extends Component {
                               <div className="form-group">
                                 <div className="form-check form-check-inline">
                                   <input 
+                                    value={role}
                                     className="form-check-input" 
                                     type="radio" 
                                     name="role" 
@@ -137,6 +162,7 @@ class EditProfileBase extends Component {
                                 </div>
                                 <div className="form-check form-check-inline">
                                   <input
+                                    value={role}
                                     className="form-check-input"
                                     type="radio"
                                     name="role"
@@ -152,7 +178,7 @@ class EditProfileBase extends Component {
                               <div className="form-group mt-5">
                                 <div className="form-check">
                                   <input 
-                                    defaultChecked={true}
+                                    defaultChecked={availability}
                                     className="form-check-input" 
                                     name="availability" 
                                     type="checkbox" 
@@ -167,6 +193,7 @@ class EditProfileBase extends Component {
                               <div className="form-group mt-5">
                                 <label htmlFor="user-status"><h5>Shortly describe why are you here</h5></label>
                                 <textarea 
+                                  value={status}
                                   className="form-control" 
                                   name="status"
                                   id="user-status" 
