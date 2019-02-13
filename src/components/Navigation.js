@@ -11,13 +11,13 @@ const Navigation = () => {
     <Navbar expand="lg" light>
 
         <AuthUserContext.Consumer>
-              {authUser => authUser ?
-                    <Link to={ROUTES.HOME} className="navbar-brand">
-                      <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
-                    </Link> :
-                    <Link to={ROUTES.LANDING} className="navbar-brand">
-                      <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
-                    </Link> }
+            {authUser => authUser ?
+                  <Link to={ROUTES.HOME} className="navbar-brand">
+                    <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
+                  </Link> :
+                  <Link to={ROUTES.LANDING} className="navbar-brand">
+                    <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
+                  </Link> }
         </AuthUserContext.Consumer>
            
         <Navbar.Toggler target="#navbarSupportedContent" />
@@ -45,7 +45,13 @@ const NavigationAuth = ({authUser}) => {
                 <div className="dropdown-item disabled"><span>{authUser.email}</span></div>
                 {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
                 <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
-                <Link to={ROUTES.EDIT_PROFILE} className="dropdown-item">Edit profile</Link>
+                <Link 
+                    to={{ 
+                      pathname:`${ROUTES.PROFILE}/${authUser.uid}`,
+                      state: { authUser }
+                    }} className="dropdown-item">
+                    Edit profile
+                </Link>
                 <Link to={ROUTES.ACCOUNT_SETTINGS} className="dropdown-item">Account settings</Link>
                 <Dropdown.Divider />
                 <SignOutButton />

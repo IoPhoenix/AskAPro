@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
+import EditProfilePage from './EditProfile';
 import * as ROUTES from '../../constants/routes';
 import './Profile.min.css';
 import importAll from '../../helpers';
@@ -9,11 +10,18 @@ const users = importAll(require.context('../../images/people', false, /\.(png|jp
 
 
 
-const ProfilePage = () => (
+const ProfilePage = () =>
+    <Switch>
+      <Route exact path={ROUTES.EDIT_PROFILE} component={EditProfilePage} />
+      <Route exact path={ROUTES.PROFILE} component={Profile} />
+    </Switch>
 
+
+const Profile = () => (
     <section className="fdb-block">
           <div className="container">
               <div className="row justify-content-center">
+
                   <AuthUserContext.Consumer>
                     { authUser => (
                       <>

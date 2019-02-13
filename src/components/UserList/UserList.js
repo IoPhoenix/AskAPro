@@ -36,6 +36,7 @@ class UserList extends Component {
             });
         });
     }
+    
     // remove the listener to avoid memory leaks:
     componentWillUnmount() {
         this.props.firebase.users().off();

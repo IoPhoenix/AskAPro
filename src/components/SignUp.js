@@ -45,8 +45,6 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
-    console.log('Sign up button was clicked');
-
     const { email, password, role, isAdmin } = this.state;
 
     // use in the future in case of multiple roles:

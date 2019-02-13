@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { Alert } from 'bootstrap-4-react';
 import * as ROUTES from '../../constants/routes';
