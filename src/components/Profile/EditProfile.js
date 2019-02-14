@@ -3,27 +3,30 @@ import { withFirebase } from '../Firebase';
 import { withAuthorization } from '../Session';
 import user from '../../images/icons/user.svg';
 import './Profile.min.css';
+import { Alert } from 'bootstrap-4-react';
 
 
-// const INITIAL_STATE = {
-//     role: 'jobseeker',
-//     avatar: '',
-//     firstName: '',
-//     lastName: '',
-//     city: '',
-//     state: '',
-//     zip: '',
-//     status: '',
-//     availability: true,
-//     error: ''
-// };
 
+const USER_DETAILS_STATE = {
+    role: 'jobseeker',
+    avatar: '',
+    firstName: '',
+    lastName: '',
+    city: '',
+    state: '',
+    zip: '',
+    status: '',
+    availability: true
+};
 
+// Route user to edit profile page after initial sign up
+// so that user can provide more information
 class EditProfileBase extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+          error: '',
           loading: false,
           ...props.location.state
         }
@@ -31,10 +34,19 @@ class EditProfileBase extends Component {
 
     // fetch user from the Firebase database if
     // the /profile/:id link is entered in the browser directly
+    // Otherwise, use auth user information from Navigation component
     componentDidMount() {
-      console.log('From EditProfile, this.state.user before: ', this.state.user);
+      console.log('From EditProfile, this.state before: ', this.state);
 
-      if (this.state.authUser) {
+      // if user signed up for the first time,
+      // set his initial details.
+      if (!this.state.user.details)  {
+        this.setState({ user: 
+            { details: USER_DETAILS_STATE }
+        })
+      }
+
+      if (this.state.user) {
         return;
       }
 
@@ -50,6 +62,8 @@ class EditProfileBase extends Component {
       });
 
       console.log('From EditProfile, this.state after: ', this.state);
+
+
     }
 
     componentWillUnmount() {
@@ -68,7 +82,7 @@ class EditProfileBase extends Component {
     };
 
     onSubmit = (event) => {
-      const { firstName, lastName, role, city, state, zip, availability, status } = this.state;
+      const { firstName, lastName, role, city, state, zip, availability, status } = this.state.user.details;
 
       console.log('this.state: ', this.state);
 
@@ -98,9 +112,10 @@ class EditProfileBase extends Component {
 
 
     render() {
-      const { loading, firstName, lastName, city, state, zip, availability, status } = this.state;
+      const { loading, error } = this.state; 
+      const { firstName, lastName, city, state, zip, availability, status } = this.state.user.details;
 
-        return (
+      return (
             <section className="fdb-block">
               <div className="container">
                 <div className="row justify-content-center">
@@ -244,11 +259,12 @@ class EditProfileBase extends Component {
                         </div>
                         <button 
                           type="submit" 
-                          className="btn fdb-box__btn fdb-box__btn--centered"
+                          className="btn fdb-box__btn fdb-box__btn--centered mb-4"
                           onClick={this.onSubmit}>
                             Submit
                         </button>
 
+                        { error && <Alert danger>{error.message}</Alert>}
                       </div>
                 </div>
             </div>

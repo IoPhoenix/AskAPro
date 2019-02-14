@@ -48,7 +48,7 @@ const NavigationAuth = ({authUser}) => {
                 <Link 
                     to={{ 
                       pathname:`${ROUTES.PROFILE}/${authUser.uid}`,
-                      state: { authUser }
+                      state: { user: authUser }
                     }} className="dropdown-item">
                     Edit profile
                 </Link>
