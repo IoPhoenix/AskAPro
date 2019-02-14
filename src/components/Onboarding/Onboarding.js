@@ -1,8 +1,10 @@
 import React, { Component} from 'react';
 import { withAuthorization } from '../Session';
-import { Jumbotron } from 'bootstrap-4-react';
-import { Alert } from 'bootstrap-4-react';
-// import * as ROUTES from '../../constants/routes';
+import { Jumbotron, Alert } from 'bootstrap-4-react';
+import { Link } from 'react-router-dom';
+import { AuthUserContext } from '../Session'
+import * as ROUTES from '../../constants/routes';
+;
 
 
 class Onboarding extends Component {
@@ -16,13 +18,19 @@ class Onboarding extends Component {
     }
   
     onChange = event => {
+        this.setState({ error: '' });
+
         this.setState({ [event.target.name]: event.target.value });
         console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
     };
 
     onSubmit = event => {
+        if (this.state.role === '') {
+            this.setState({ error: 'Please choose a role' });
+            event.preventDefault();
+            return;
+        }
 
-        event.preventDefault();
     }
 
     render() {
@@ -40,7 +48,6 @@ class Onboarding extends Component {
                     <div className="row justify-content-center">
                         <div className="col col-md-8 text-center fdb-box fdb-touch">
                             <h4 className="text-center mb-4">Please select your role</h4>
-                            <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <div className="form-check form-check-inline">
                                         <input 
@@ -66,13 +73,21 @@ class Onboarding extends Component {
                                     </div>
                                     <small id="roleHelp" className="form-text text-muted">* You can change your role later</small>
                                 </div>
-                                <button 
-                                    type="submit" 
-                                    className="btn fdb-box__btn fdb-box__btn--centered mb-4" >
+                                <AuthUserContext.Consumer>
+                                { authUser => 
+                                    <Link 
+                                        to={{ 
+                                            pathname:`${ROUTES.PROFILE}/${authUser.uid}`,
+                                            state: { authUser }
+                                        }} 
+                                        onClick={this.onSubmit}
+                                        className="btn fdb-box__btn fdb-box__btn--centered mb-4">
                                         Next
-                                    </button>
-                                { error && <Alert danger>{error.message}</Alert>}
-                            </form>
+                                    </Link>
+                                }
+                                </AuthUserContext.Consumer>
+                               
+                                { error && <Alert danger>{error}</Alert>}
                         </div>
                     </div>
                 </section>
