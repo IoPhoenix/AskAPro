@@ -199,31 +199,31 @@ class EditProfileBase extends Component {
                           </div>
                               
                         <div className="col col-md-8 fdb-touch fdb-box mt-5">
-                        <h4 className="text-center mb-4">Current status</h4>
-                        <div className="form-group">
-                          <div className="form-check form-check-inline">
-                            <input 
-                              className="form-check-input" 
-                              type="radio" 
-                              name="role" 
-                              id="job-seeker" 
-                              value="jobseeker"
-                              onChange={this.onChange}
-                              aria-describedby="roleHelp" />
-                            <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
-                          </div>
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="role"
-                              id="pro"
-                              value="pro"
-                              onChange={this.onChange} 
-                              aria-describedby="roleHelp" />
-                            <label className="form-check-label" htmlFor="pro">I am a professional</label>
-                          </div>
-                          <small id="roleHelp" className="form-text text-muted">*You might need to provide additional information depending on your role</small>
+                          <h4 className="text-center mb-4">Current status</h4>
+                          <div className="form-group">
+                            <div className="form-check form-check-inline">
+                              <input 
+                                className="form-check-input" 
+                                type="radio" 
+                                name="role" 
+                                id="job-seeker" 
+                                value="jobseeker"
+                                onChange={this.onChange}
+                                aria-describedby="roleHelp" />
+                              <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="role"
+                                id="pro"
+                                value="pro"
+                                onChange={this.onChange} 
+                                aria-describedby="roleHelp" />
+                              <label className="form-check-label" htmlFor="pro">I am a professional</label>
+                            </div>
+                            <small id="roleHelp" className="form-text text-muted">* You can change your role later</small>
                         </div>
 
                         <div className="form-group mt-5">
