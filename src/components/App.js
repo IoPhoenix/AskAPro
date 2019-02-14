@@ -11,6 +11,7 @@ import InterviewTipsPage from './InterviewTips/InterviewTips';
 import ContactPage from './Contact/Contact';
 import AdminPage from './Admin/Admin';
 import UserDetails from './Admin/UserDetails';
+import OnboardingPage from './Onboarding/Onboarding';
 import ProfilePage from './Profile/Profile';
 import EditProfilePage from './Profile/EditProfile';
 import AccountSettingsPage from './Profile/AccountSettings';
@@ -49,6 +50,10 @@ const App = () => (
         <Route
           exact path={routes.HOME}
           component={() => <HomePage />}
+        />
+         <Route
+          exact path={routes.ONBOARDING}
+          component={() => <OnboardingPage />}
         />
         <Route
           exact path={routes.PROFILE}

@@ -4,6 +4,7 @@ export const LANDING = '/';
 export const HOME = '/home';
 export const ABOUT = '/about';
 export const CONTACT = '/contact';
+export const ONBOARDING = '/onboarding';
 export const PROFILE = '/profile';
 export const EDIT_PROFILE = '/profile/:id';
 export const ACCOUNT_SETTINGS = '/account-settings';

@@ -14,7 +14,7 @@ class UserDetailsBase extends Component {
     }
 
     componentDidMount() {
-        console.log('From UserDetails: this.state.user: ', this.state.user);
+        console.log('From UserDetails: this.state: ', this.state);
 
         if (this.state.user) {
             return;

@@ -11,7 +11,7 @@ const Navigation = () => {
     <Navbar expand="lg" light>
 
         <AuthUserContext.Consumer>
-            {authUser => authUser ?
+            {user => user ?
                   <Link to={ROUTES.HOME} className="navbar-brand">
                     <img src={logo} weight="30" height="30" alt="Website Logo"/><span> AskAPro</span>
                   </Link> :
@@ -23,16 +23,16 @@ const Navigation = () => {
         <Navbar.Toggler target="#navbarSupportedContent" />
         <Collapse navbar id="navbarSupportedContent">
           <AuthUserContext.Consumer>
-               {authUser => authUser ? <NavigationAuth authUser={authUser}/> : <NavigationNonAuth />}
+               {user => user ? <NavigationAuth user={user}/> : <NavigationNonAuth />}
           </AuthUserContext.Consumer>
         </Collapse>
     </Navbar>
   )
 }
 
-const NavigationAuth = ({authUser}) => {
+const NavigationAuth = ({ user }) => {
   
-  console.log('authUser in Nav: ', authUser);
+  console.log('user in Nav: ', user);
 
   return (
       <Navbar.Nav ml="auto">
@@ -42,13 +42,13 @@ const NavigationAuth = ({authUser}) => {
         <Nav.Item dropdown>
             <Nav.Link dropdownToggle>Dashboard</Nav.Link>
             <Dropdown.Menu>
-                <div className="dropdown-item disabled"><span>{authUser.email}</span></div>
-                {authUser.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
+                <div className="dropdown-item disabled"><span>{user.email}</span></div>
+                {user.isAdmin === true && <Link to={ROUTES.ADMIN} className="dropdown-item">Admin</Link>}
                 <Link to={ROUTES.PROFILE} className="dropdown-item">Profile</Link>
                 <Link 
                     to={{ 
-                      pathname:`${ROUTES.PROFILE}/${authUser.uid}`,
-                      state: { user: authUser }
+                      pathname:`${ROUTES.PROFILE}/${user.uid}`,
+                      state: { user }
                     }} className="dropdown-item">
                     Edit profile
                 </Link>

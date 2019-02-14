@@ -31,6 +31,18 @@ const INITIAL_STATE = {
   error: null,
 };
 
+const USER_DETAILS_STATE = {
+  role: 'jobseeker',
+  avatar: '',
+  firstName: '',
+  lastName: '',
+  city: '',
+  state: '',
+  zip: '',
+  status: '',
+  availability: true
+};
+
 
 
 class SignUpFormBase extends Component {
@@ -64,14 +76,15 @@ class SignUpFormBase extends Component {
           .set({
             email,
             role,
-            isAdmin
+            isAdmin,
+            details: USER_DETAILS_STATE
           });
       })
       .then(authUser => {
         console.log('authUser is: ', authUser);
 
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.EDIT_PROFILE);
+        this.props.history.push(ROUTES.ONBOARDING);
       })
       .catch(error => {
         // if user already created an account using a social network:
@@ -211,7 +224,7 @@ class SignUpFormBase extends Component {
   }
 }
 
-/*T o redirect a user to another page, we need access to React Router. 
+/* T o redirect a user to another page, we need access to React Router. 
 The React Router node package offers a higher-order component to make 
 the router properties accessible in the props of a component. Any component
 that goes in the withRouter() HOC gains access to all the properties of the router,
