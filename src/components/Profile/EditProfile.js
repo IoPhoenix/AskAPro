@@ -41,6 +41,8 @@ class EditProfileBase extends Component {
       console.log('From EditProfile, this.props: ', this.props);
 
       if (this.state.user) {
+
+        Object.assign({}, this.state.user.details, { role: 'test' }); 
         return;
       }
 
@@ -106,7 +108,6 @@ class EditProfileBase extends Component {
 
     render() {
       const { loading, error, user } = this.state; 
-      // const { firstName, lastName, city, state, zip, availability, status } = this.state.user.details;
 
       return (
             <section className="fdb-block">
@@ -118,7 +119,7 @@ class EditProfileBase extends Component {
                     {user && (
                       <>
                         <div className="col col-md-8 text-center fdb-box fdb-touch">
-                            <h1 className="mb-4">Edit your profile</h1>
+                            <h1 className="mb-4">Edit profile</h1>
                             <img 
                               alt="Round user portrait" 
                               width="160" 
@@ -203,6 +204,7 @@ class EditProfileBase extends Component {
                           <div className="form-group">
                             <div className="form-check form-check-inline">
                               <input 
+                                defaultChecked={user.details.role === 'jobseeker'}
                                 className="form-check-input" 
                                 type="radio" 
                                 name="role" 
@@ -214,6 +216,7 @@ class EditProfileBase extends Component {
                             </div>
                             <div className="form-check form-check-inline">
                               <input
+                                defaultChecked={user.details.role === 'pro'}
                                 className="form-check-input"
                                 type="radio"
                                 name="role"
@@ -223,7 +226,7 @@ class EditProfileBase extends Component {
                                 aria-describedby="roleHelp" />
                               <label className="form-check-label" htmlFor="pro">I am a professional</label>
                             </div>
-                            <small id="roleHelp" className="form-text text-muted">* You can change your role later</small>
+                            <small id="roleHelp" className="form-text text-muted">* You can change your role any time</small>
                         </div>
 
                         <div className="form-group mt-5">

@@ -4,7 +4,7 @@ import { Jumbotron, Alert } from 'bootstrap-4-react';
 import { Link } from 'react-router-dom';
 import { AuthUserContext } from '../Session'
 import * as ROUTES from '../../constants/routes';
-;
+import './Onboarding.css';
 
 
 class Onboarding extends Component {
@@ -30,6 +30,7 @@ class Onboarding extends Component {
             event.preventDefault();
             return;
         }
+
 
     }
 
@@ -71,14 +72,13 @@ class Onboarding extends Component {
                                             aria-describedby="roleHelp" />
                                         <label className="form-check-label" htmlFor="pro">I am a professional</label>
                                     </div>
-                                    <small id="roleHelp" className="form-text text-muted">* You can change your role later</small>
                                 </div>
                                 <AuthUserContext.Consumer>
                                 { authUser => 
                                     <Link 
                                         to={{ 
                                             pathname:`${ROUTES.PROFILE}/${authUser.uid}`,
-                                            state: { authUser }
+                                            state: { user: authUser, role: this.state.role }
                                         }} 
                                         onClick={this.onSubmit}
                                         className="btn fdb-box__btn fdb-box__btn--centered mb-4">

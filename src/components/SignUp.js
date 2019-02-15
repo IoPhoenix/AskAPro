@@ -26,7 +26,6 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   passwordConfirmed: '',
-  role: '',
   isAdmin: false,
   error: null,
 };
@@ -57,14 +56,7 @@ class SignUpFormBase extends Component {
   };
 
   onSubmit = (event) => {
-    const { email, password, role, isAdmin } = this.state;
-
-    // use in the future in case of multiple roles:
-    // const roles = [];
-
-    // if (role) {
-    //   roles.push(ROLES.ROLE);
-    // }
+    const { email, password, isAdmin } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
@@ -75,7 +67,6 @@ class SignUpFormBase extends Component {
           .user(authUser.user.uid)
           .set({
             email,
-            role,
             isAdmin,
             details: USER_DETAILS_STATE
           });
@@ -99,15 +90,14 @@ class SignUpFormBase extends Component {
   }
 
   render() {
-    const { email, password, passwordConfirmed, role, error } = this.state;
+    const { email, password, passwordConfirmed, error } = this.state;
     
     const isInvalid =
       password === '' ||
       passwordConfirmed === '' ||
       password !== passwordConfirmed ||
       email === '' ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || role === '';
-    
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     return (
       <section className="fdb-block">
@@ -166,32 +156,6 @@ class SignUpFormBase extends Component {
                       placeholder="Confirm Password"
                       className="form-control mb-1" />
                   </div>
-                </div>
-                <div className="row mt-4">
-                  <div className="col">
-                    <div className="form-check form-check-inline">
-                        <input 
-                          className="form-check-input" 
-                          type="radio" 
-                          name="role" 
-                          id="job-seeker" 
-                          value="jobseeker"
-                          onChange={this.onChange} />
-                        <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
-                      </div>
-                      <div className="form-check form-check-inline">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="role"
-                          id="pro"
-                          value="pro"
-                          onChange={this.onChange} />
-                        <label className="form-check-label" htmlFor="pro">I am a pro</label>
-                      </div>
-                    <p><small>* You can change your role later</small></p>
-                  </div>
-
                 </div>
                 <div className="row mt-2">
                   <div className="col">
