@@ -8,7 +8,9 @@ import './SignIn.min.css';
 
 
 
-
+// user can sign in or sign up with Google
+// after sign up user is redirected to onboarding page
+// otherwise to home page
 class SignInGoogleBase extends Component {
     constructor(props) {
       super(props);
@@ -23,22 +25,20 @@ class SignInGoogleBase extends Component {
 
           console.log('From SignInGoogleBase, socialAuthUser: ', socialAuthUser);
 
-          // create user in Firebase Realtime Database:
+            // create user in Firebase Realtime Database:
           return this.props.firebase
             .user(socialAuthUser.user.uid)
-            .set({
-              username: socialAuthUser.user.displayName,
-              email: socialAuthUser.user.email
-            });
-      })
-      .then(() => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
-      })
-      .catch(error => {
-        if (error.code === ERRORS.ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERRORS.ERROR_MSG_ACCOUNT_EXISTS;
-        }
+            .set({email: socialAuthUser.additionalUserInfo.profile.email});
+        })
+        .then(() => {
+
+          this.setState({ error: null });
+          this.props.history.push(ROUTES.HOME);
+        })
+        .catch(error => {
+          if (error.code === ERRORS.ERROR_CODE_ACCOUNT_EXISTS) {
+            error.message = ERRORS.ERROR_MSG_ACCOUNT_EXISTS;
+          }
 
         this.setState({ error });
       });
