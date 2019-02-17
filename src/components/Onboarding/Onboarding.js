@@ -30,8 +30,6 @@ class Onboarding extends Component {
             event.preventDefault();
             return;
         }
-
-
     }
 
     render() {

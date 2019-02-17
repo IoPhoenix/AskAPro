@@ -6,19 +6,6 @@ import './Profile.min.css';
 import { Alert } from 'bootstrap-4-react';
 
 
-
-const USER_DETAILS_STATE = {
-    role: 'jobseeker',
-    avatar: '',
-    firstName: '',
-    lastName: '',
-    city: '',
-    state: '',
-    zip: '',
-    status: '',
-    availability: true
-};
-
 // Route user to edit profile page after initial sign up
 // so that user can provide more information
 class EditProfileBase extends Component {
@@ -35,14 +22,17 @@ class EditProfileBase extends Component {
 
     // fetch user from the Firebase database if
     // the /profile/:id link is entered in the browser directly
-    // Otherwise, use auth user information from Navigation component
+    // Otherwise, use auth user information from Navigation or Onboarding component
     componentDidMount() {
       console.log('From EditProfile, this.state before: ', this.state);
-      console.log('From EditProfile, this.props: ', this.props);
 
+      // pass chosen role from Onboarding to user object:
+      if (this.props.location.state && this.props.location.state.role) {
+        this.setState({...this.state, role: this.props.location.state.role });
+      }
+
+      // if user info is already present, do not proceed
       if (this.state.user) {
-
-        Object.assign({}, this.state.user.details, { role: 'test' }); 
         return;
       }
 
@@ -67,17 +57,23 @@ class EditProfileBase extends Component {
 
   
     onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
+      this.setState(Object.assign(this.state.user.details, { [event.target.name]: event.target.value }));
+      console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
     };
 
     onCheckboxChange = event => {
-      this.setState({ [event.target.name]: event.target.checked });
+      this.setState(Object.assign(this.state.user.details, { [event.target.name]: event.target.checked }));
       console.log('[event.target.name]: ', [event.target.name], 'event.target.checked: ', event.target.checked);
     };
 
+    onRoleChange = event => {
+      this.setState(Object.assign(this.state.user, { role: event.target.value }));
+      console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
+    }
+
     onSubmit = (event) => {
-      const { firstName, lastName, role, city, state, zip, availability, status } = this.state.user.details;
+      const { firstName, lastName, city, state, zip, availability, status } = this.state.user.details;
+      const { role } = this.state.user;
 
       console.log('this.state: ', this.state);
 
@@ -87,7 +83,6 @@ class EditProfileBase extends Component {
       this.props.firebase.doSendUserDetails(uid, {
         firstName,
         lastName,
-        role,
         availability,
         status,
         city,
@@ -204,25 +199,25 @@ class EditProfileBase extends Component {
                           <div className="form-group">
                             <div className="form-check form-check-inline">
                               <input 
-                                defaultChecked={user.details.role === 'jobseeker'}
+                                defaultChecked={user.role === 'jobseeker'}
                                 className="form-check-input" 
                                 type="radio" 
                                 name="role" 
                                 id="job-seeker" 
                                 value="jobseeker"
-                                onChange={this.onChange}
+                                onChange={this.onRoleChange}
                                 aria-describedby="roleHelp" />
                               <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
                             </div>
                             <div className="form-check form-check-inline">
                               <input
-                                defaultChecked={user.details.role === 'pro'}
+                                defaultChecked={user.role === 'pro'}
                                 className="form-check-input"
                                 type="radio"
                                 name="role"
                                 id="pro"
                                 value="pro"
-                                onChange={this.onChange} 
+                                onChange={this.onRoleChange} 
                                 aria-describedby="roleHelp" />
                               <label className="form-check-label" htmlFor="pro">I am a professional</label>
                             </div>
