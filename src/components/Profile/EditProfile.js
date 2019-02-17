@@ -13,7 +13,7 @@ class EditProfileBase extends Component {
         super(props);
 
         this.state = {
-          error: '',
+          message: '',
           loading: false,
           user: null,
           ...props.location.state
@@ -28,7 +28,9 @@ class EditProfileBase extends Component {
 
       // pass chosen role from Onboarding to user object:
       if (this.props.location.state && this.props.location.state.role) {
-        this.setState({...this.state, role: this.props.location.state.role });
+        let user = Object.assign({}, this.state.user);
+        user.details['role'] = this.props.location.state.role;
+        return this.setState({ user }, () => console.log('new state is ', this.state));
       }
 
       // if user info is already present, do not proceed
@@ -57,23 +59,24 @@ class EditProfileBase extends Component {
 
   
     onChange = event => {
-      this.setState(Object.assign(this.state.user.details, { [event.target.name]: event.target.value }));
       console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
+
+      let user = Object.assign({}, this.state.user);
+      user.details[event.target.name] = event.target.value;
+      return this.setState({ user }, () => console.log('new state is ', this.state));
     };
 
     onCheckboxChange = event => {
-      this.setState(Object.assign(this.state.user.details, { [event.target.name]: event.target.checked }));
       console.log('[event.target.name]: ', [event.target.name], 'event.target.checked: ', event.target.checked);
+
+      let user = Object.assign({}, this.state.user);
+      user.details[event.target.name] = event.target.checked;
+      return this.setState({ user }, () => console.log('new state is ', this.state));
     };
 
-    onRoleChange = event => {
-      this.setState(Object.assign(this.state.user, { role: event.target.value }));
-      console.log('[event.target.name]: ', [event.target.name], 'event.target.value: ', event.target.value);
-    }
 
     onSubmit = (event) => {
-      const { firstName, lastName, city, state, zip, availability, status } = this.state.user.details;
-      const { role } = this.state.user;
+      const { firstName, lastName, role, city, state, zip, availability, status } = this.state.user.details;
 
       console.log('this.state: ', this.state);
 
@@ -81,6 +84,7 @@ class EditProfileBase extends Component {
 
       // send new data to firebase
       this.props.firebase.doSendUserDetails(uid, {
+        role,
         firstName,
         lastName,
         availability,
@@ -88,12 +92,13 @@ class EditProfileBase extends Component {
         city,
         state,
         zip
-      }, function(error) {
+      }, (error) => {
           if (error) {
             console.log('error sending data: ', error);
-            this.setState({ error: 'Something went wrong. Please try again later' })
+            this.setState({ message: 'Something went wrong. Please try again later' })
           } else {
             console.log('data saved successfully!');
+            this.setState({ message: 'Your information has been updated!' });
           }
       });
 
@@ -102,7 +107,7 @@ class EditProfileBase extends Component {
 
 
     render() {
-      const { loading, error, user } = this.state; 
+      const { loading, message, user } = this.state; 
 
       return (
             <section className="fdb-block">
@@ -199,25 +204,25 @@ class EditProfileBase extends Component {
                           <div className="form-group">
                             <div className="form-check form-check-inline">
                               <input 
-                                defaultChecked={user.role === 'jobseeker'}
+                                defaultChecked={user.details.role === 'jobseeker'}
                                 className="form-check-input" 
                                 type="radio" 
                                 name="role" 
                                 id="job-seeker" 
                                 value="jobseeker"
-                                onChange={this.onRoleChange}
+                                onChange={this.onChange}
                                 aria-describedby="roleHelp" />
                               <label className="form-check-label" htmlFor="job-seeker">I am a job seeker</label>
                             </div>
                             <div className="form-check form-check-inline">
                               <input
-                                defaultChecked={user.role === 'pro'}
+                                defaultChecked={user.details.role === 'pro'}
                                 className="form-check-input"
                                 type="radio"
                                 name="role"
                                 id="pro"
                                 value="pro"
-                                onChange={this.onRoleChange} 
+                                onChange={this.onChange} 
                                 aria-describedby="roleHelp" />
                               <label className="form-check-label" htmlFor="pro">I am a professional</label>
                             </div>
@@ -257,7 +262,7 @@ class EditProfileBase extends Component {
                             Submit
                         </button>
 
-                        { error && <Alert danger>{error.message}</Alert>}
+                        { message && <Alert danger>{message}</Alert>}
                       </div>
                       </>
                     )}

@@ -23,7 +23,6 @@ const SignUpPage = () => {
 
 
 const INITIAL_STATE = {
-  role: '',
   firstTimeUser: true,
   email: '',
   password: '',
@@ -33,6 +32,7 @@ const INITIAL_STATE = {
 };
 
 const USER_DETAILS_STATE = {
+  role: '',
   avatar: '',
   firstName: '',
   lastName: '',
@@ -67,7 +67,6 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
-            role,
             firstTimeUser,
             email,
             isAdmin,
